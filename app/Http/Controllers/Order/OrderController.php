@@ -42,6 +42,8 @@ class OrderController extends Controller
             'order_sn'=>$order_sn,
             'order_amount'=>$order_amount,
             'add_time'=>time(),
+            'order_price'=>$goods_info['price'],
+            'order_num'=>$v['num']
         ];
         $info = OrderModel::insertGetId($data);
         if(!$info){
@@ -50,7 +52,7 @@ class OrderController extends Controller
         echo '下单成功,订单号：'.$info .'跳转支付';
         //清空购物车
         CartModel::where(['uid'=>session()->get('uid')])->delete();
-
+        header('Refresh:2,/order/list');
     }
 
     /**展示订单*/
@@ -60,6 +62,43 @@ class OrderController extends Controller
             'arr'=>$arr
         ];
         return view('order.list',$data);
+    }
+
+    public  function payment($order_id){
+
+        $where=[
+            'order_id'=>$order_id,
+        ];
+        $arr=OrderModel::where($where)->first()->toArray();
+        $data=[
+            'arr'=>$arr
+        ];
+        return view('order.payment',$data);
+    }
+    public  function payments($order_id,$type){
+
+        if($type==1){
+            $wheres=[
+                'state'=>2
+            ];
+            $test='支付成功';
+        }else{
+            $wheres=[
+                'state'=>1
+            ];
+            $test='退款成功';
+        }
+        $where=[
+            'order_id'=>$order_id,
+        ];
+        $arr=OrderModel::where($where)->update($wheres);
+        if($arr){
+            echo $test;
+            header('refresh:2,/order/list');
+        }else{
+            echo '操作失败';
+            header('refresh:2,/order/list');
+        }
     }
 
 }

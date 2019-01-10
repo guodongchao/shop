@@ -71,12 +71,20 @@ Route::any('/cart/del/{goods_id}','Cart\CartController@del')->middleware('check.
 Route::any('/cart/del2/{goods_id}','Cart\CartController@del2')->middleware('check.login.token');  //删除商品
 
 //商品
-Route::any('/goods/{goods_id}','Goods\GoodsController@goods')->middleware('check.login.token');  ;  //商品详情
+Route::any('/goods/{goods_id}','Goods\GoodsController@goods')->middleware('check.login.token');   //商品详情
 
-Route::any('/goods2/list','Goods\GoodsController@goods2')->middleware('check.login.token');  ;  //商品展示
-//订单
+Route::any('/goods2/list','Goods\GoodsController@goods2')->middleware('check.login.token');   //商品展示
+//添加订单
 Route::any('/order','Order\OrderController@add')->middleware('check.login.token');  ;  //订单
-Route::any('/order/list','Order\OrderController@list')->middleware('check.login.token');  ;  //订单
+//订单展示
+Route::any('/order/list','Order\OrderController@list')->middleware('check.login.token');   //订单展示
+//支付展示
+Route::any('/order/payment/{order_id}','Order\OrderController@payment')->middleware('check.login.token');   //订单支付
+//订单支付成功
+Route::any('/order/payments/{order_id}/{type}','Order\OrderController@payments'); //订单支付成功
+
+
+
 
 
 

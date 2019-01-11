@@ -96,7 +96,7 @@ class OrderController extends Controller
             echo $test;
             header('refresh:2,/order/list');
         }else{
-            echo '操作失败';
+            echo '操作00失败';
             header('refresh:2,/order/list');
         }
     }

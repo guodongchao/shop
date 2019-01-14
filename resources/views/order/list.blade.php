@@ -22,7 +22,7 @@
                 <td class="warning">
                     <li class="btn">
                         @if($v['state']==1)
-                        <a href="/order/payments/{{$v['order_id']}}/{{$type=1}}">付款</a>
+                        <a href="/order/payment/{{$v['order_id']}}">付款</a>
                         @elseif($v['state']==2)
                         已付款 <a href="/order/payments/{{$v['order_id']}}/{{$type=2}}">退款</a>
                         @endif

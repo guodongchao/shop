@@ -9,7 +9,7 @@
                 <td class="warning">共计 ¥{{$arr['order_amount']}}</td>
             </tr>
         <hr>
-        <td colspan="5" align="center"> <a href="/pay/alipay/test" id="submit_order" class="btn btn-info "> 立即支付 </a></td>
+        <td colspan="5" align="center"> <a href="/alipay/{{$order_id}}" id="submit_order" class="btn btn-info "> 立即支付 </a></td>
 
     </table>
 

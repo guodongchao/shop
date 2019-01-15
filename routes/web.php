@@ -84,6 +84,10 @@ Route::any('/order/payment/{order_id}','Order\OrderController@payment')->middlew
 Route::any('/order/payments/{order_id}/{type}','Order\OrderController@payments'); //订单支付成功
 Route::any('/alipay','Alipay\AlipayController@alipay'); //订单支付成功
 
+Route::post('/alipay2/notify','Pay\AlipayController@aliNotify');        //支付宝支付 异步通知回调
+Route::get('/alipay2/return','Pay\AlipayController@aliReturn');        //支付宝支付 同步通知回调
+
+
 
 //支付
 Route::get('/pay/alipay/test','Pay\AlipayController@test');         //测试

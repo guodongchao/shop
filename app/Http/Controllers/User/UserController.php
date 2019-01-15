@@ -46,7 +46,7 @@ class UserController extends Controller
         ];
         $uid = UserModel::insertGetId($data);
         if($uid){
-            setcookie('uid',$uid,time()+86400,'/','shop_laravel.com',false,true);
+            setcookie('uid',$uid,time()+86400,'/','gdc.qianqianya.xyz',false,true);
             header("Refresh:2;url=/center");
             echo '添加成功，正在飞过来';
           //  exit;
@@ -79,7 +79,7 @@ class UserController extends Controller
         if($result){
           if(password_verify($pass,$result->pass)){
               $token = substr(md5(time().mt_rand(1,99999)),10,10);
-              setcookie('uid',$result->uid,time()+86400,'/','shop_laravel.com',false,true);
+              setcookie('uid',$result->uid,time()+86400,'/','gdc.qianqianya.xyz',false,true);
               setcookie('token',$token,time()+86400,'/login','',false,true);
               $request->session()->put('u_token',$token);
               $request->session()->put('uid',$result->uid);

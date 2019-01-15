@@ -36,6 +36,6 @@ class GoodsController extends Controller
         $list = [
             'data'=>$goods2
         ];
-        return view('goods.goodslist',$list);
+        return view('goods.goodsList',$list);
     }
 }

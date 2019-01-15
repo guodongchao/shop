@@ -90,7 +90,7 @@ Route::get('/alipay2/return','Pay\AlipayController@aliReturn');        //支付�
 
 
 //支付
-Route::get('/pay/alipay/test','Pay\AlipayController@test');         //测试
+Route::any('/alipay/{order_id}','Pay\AlipayController@pay')->middleware('check.login.token');
 
 
 

@@ -69,10 +69,12 @@ class OrderController extends Controller
         $where=[
             'order_id'=>$order_id,
         ];
+
         $arr=OrderModel::where($where)->first()->toArray();
         $data=[
             'arr'=>$arr
         ];
+
         return view('order.payment',$data);
     }
     public  function payments($order_id,$type){

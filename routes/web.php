@@ -79,7 +79,9 @@ Route::any('/order','Order\OrderController@add')->middleware('check.login.token'
 //订单展示
 Route::any('/order/list','Order\OrderController@list')->middleware('check.login.token');   //订单展示
 //支付展示
+
 Route::any('/order/payment/{order_id}','Order\OrderController@payment')->middleware('check.login.token');   //订单支付
+
 //订单支付成功
 Route::any('/order/payments/{order_id}/{type}','Order\OrderController@payments'); //订单支付成功
 Route::any('/alipay','Alipay\AlipayController@alipay'); //订单支付成功

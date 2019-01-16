@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Pay;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Model\OrderModel;
 use GuzzleHttp\Client;
 
 class AlipayController extends Controller
@@ -55,7 +55,6 @@ class AlipayController extends Controller
 
         //验证订单状态 是否已支付 是否是有效订单
         $order_info = OrderModel::where(['order_id'=>$order_id])->first()->toArray();
-
         //判断订单是否已被支付
         if($order_info['state']==2){
             die("订单已支付，请勿重复支付");
@@ -64,18 +63,13 @@ class AlipayController extends Controller
         if($order_info['is_delete']==1){
             die("订单已被删除，无法支付");
         }
-
-
-
         //业务参数
         $bizcont = [
             'subject'           => 'Lening-Order: ' .$order_id,
             'out_trade_no'      => $order_id,
             'total_amount'      => $order_info['order_amount'] / 100,
             'product_code'      => 'QUICK_WAP_WAY',
-
         ];
-
         //公共参数
         $data = [
             'app_id'   => $this->app_id,

@@ -75,7 +75,7 @@ Route::any('/cart','Cart\CartController@index');
 Route::any('/cart/add/{goods_id}','Cart\CartController@add');  //商品添加
 Route::any('/cart/add2/','Cart\CartController@add2');      //添加商品
 Route::any('/cart/del/{goods_id}','Cart\CartController@del');  //删除商品
-Route::any('/cart/del2/{goods_id}','Cart\CartController@del2');  //删除商品
+Route::any('/cart/del2/{cart_id}','Cart\CartController@del2');  //删除商品
 
 //商品
 Route::any('/goods/{goods_id}','Goods\GoodsController@goods');   //商品详情

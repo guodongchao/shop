@@ -54,12 +54,13 @@ class CartController extends Controller
             //获取商品最新信息
             foreach($cart_goods as $k=>$v){
                 $goods_info = GoodsModel::where(['goods_id'=>$v['goods_id']])->first()->toArray();
+
                 $goods_info['num']  = $v['num'];
+                $goods_info['cart_id']=$v['cart_id'];
                 //echo '<pre>';print_r($goods_info);echo '</pre>';
                 $list[] = $goods_info;
             }
         }
-
         $data = [
             'list'  => $list
         ];
@@ -190,18 +191,18 @@ class CartController extends Controller
 
     }
 
-    public function del2($goods_id){
+    public function del2($cart_id){
        // $res = session()->get('uid');
         $where = [
-            'goods_id'=>$goods_id,
+            'cart_id'=>$cart_id,
             'uid'=>$this->uid,
         ];
         $result = CartModel::where($where)->delete();
         if($result){
-            echo '商品ID:  '.$goods_id . ' 删除成功1';
+            echo '商品ID:  '.$cart_id . ' 删除成功1';
             header("Refresh:1;url=/cart");
         }else{
-            echo '商品ID:  '.$goods_id . ' 删除成功2';
+            echo '商品ID:  '.$cart_id . ' 删除成功2';
             header("Refresh:1;url=/cart");
         }
     }

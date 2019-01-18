@@ -21,10 +21,8 @@
                 <td class="success">{{$v['goods_store']}}</td>
                 <td class="danger">{{$v['price']}}</td>
                 <td class="info">{{date("Y-m-d H:i:s"),$v['add_time']}}</td>
-
                 <td class="warning">
                     <li class="btn"><a href="/goods/{{$v['goods_id']}}">详情信息</a></li>
-
                 </td>
             </tr>
         @endforeach

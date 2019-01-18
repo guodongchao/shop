@@ -30,4 +30,5 @@
         @endforeach
 
     </table>
+    {{$data->links()}}
 @endsection

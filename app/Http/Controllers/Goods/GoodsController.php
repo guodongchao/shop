@@ -36,7 +36,7 @@ class GoodsController extends Controller
     }
 
     public function goods2(){
-        $goods2 = GoodsModel::all();
+        $goods2 = GoodsModel::paginate(2);
         $list = [
             'data'=>$goods2
         ];

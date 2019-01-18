@@ -49,12 +49,12 @@ Route::any('/test/abc','Test\TestController@abc');
 
 Route::any('/view/test1','Test\TestController@viewTest1');
 Route::any('/view/test2','Test\TestController@viewTest2');
-Route::any('/check_cookie','Test\TestController@checkCookie')->middleware('check.cookie');//中间价测试
+Route::any('/check_cookie','Test\TestController@checkCookie');
 
 Route::middleware(['log.click'])->group(function(){
     Route::any('/view/test1','Test\TestController@viewTest1');
     Route::any('/view/test2','Test\TestController@viewTest2');
-    Route::any('/check_cookie','Test\TestController@checkCookie')->middleware('check.cookie');//中间价测试
+    Route::any('/check_cookie','Test\TestController@checkCookie');
 });
 
 
@@ -71,23 +71,23 @@ Route::any('/loginadd','User\UserController@loginadd');
 //个人中心
 Route::any('/center','User\UserController@center');
 //购物车
-Route::any('/cart','Cart\CartController@index')->middleware('check.login.token');
-Route::any('/cart/add/{goods_id}','Cart\CartController@add')->middleware('check.login.token');  //商品添加
-Route::any('/cart/add2/','Cart\CartController@add2')->middleware('check.login.token');      //添加商品
-Route::any('/cart/del/{goods_id}','Cart\CartController@del')->middleware('check.login.token');  //删除商品
-Route::any('/cart/del2/{goods_id}','Cart\CartController@del2')->middleware('check.login.token');  //删除商品
+Route::any('/cart','Cart\CartController@index');
+Route::any('/cart/add/{goods_id}','Cart\CartController@add');  //商品添加
+Route::any('/cart/add2/','Cart\CartController@add2');      //添加商品
+Route::any('/cart/del/{goods_id}','Cart\CartController@del');  //删除商品
+Route::any('/cart/del2/{goods_id}','Cart\CartController@del2');  //删除商品
 
 //商品
-Route::any('/goods/{goods_id}','Goods\GoodsController@goods')->middleware('check.login.token');   //商品详情
+Route::any('/goods/{goods_id}','Goods\GoodsController@goods');   //商品详情
 
 Route::any('/goods2/list','Goods\GoodsController@goods2');   //商品展示
 //添加订单
-Route::any('/order','Order\OrderController@add')->middleware('check.login.token');  ;  //订单
+Route::any('/order','Order\OrderController@add'); //订单
 //订单展示
-Route::any('/order/list','Order\OrderController@list')->middleware('check.login.token');   //订单展示
+Route::any('/order/list','Order\OrderController@list');   //订单展示
 //支付展示
 
-Route::any('/order/payment/{order_id}','Order\OrderController@payment')->middleware('check.login.token');   //订单支付
+Route::any('/order/payment/{order_id}','Order\OrderController@payment');   //订单支付
 
 //订单支付成功
 Route::any('/order/payments/{order_id}/{type}','Order\OrderController@payments'); //订单支付成功
@@ -99,7 +99,7 @@ Route::get('/alipay2/return','Pay\AlipayController@aliReturn');        //支付�
 
 
 //支付
-Route::any('/alipay/{order_id}','Pay\AlipayController@pay')->middleware('check.login.token');
+Route::any('/alipay/{order_id}','Pay\AlipayController@pay');
 
 
 

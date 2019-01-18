@@ -96,6 +96,6 @@ Route::any('/alipay/{order_id}','Pay\AlipayController@pay')->middleware('check.l
 
 
 
+Auth::routes();
 
-
-
+Route::get('/home', 'HomeController@index')->name('home');

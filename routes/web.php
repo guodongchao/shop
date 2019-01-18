@@ -51,6 +51,13 @@ Route::any('/view/test1','Test\TestController@viewTest1');
 Route::any('/view/test2','Test\TestController@viewTest2');
 Route::any('/check_cookie','Test\TestController@checkCookie')->middleware('check.cookie');//中间价测试
 
+Route::middleware(['log.click'])->group(function(){
+    Route::any('/view/test1','Test\TestController@viewTest1');
+    Route::any('/view/test2','Test\TestController@viewTest2');
+    Route::any('/check_cookie','Test\TestController@checkCookie')->middleware('check.cookie');//中间价测试
+});
+
+
 
 //用户注册
 Route::any('/userreg','User\UserController@reg');
@@ -73,7 +80,7 @@ Route::any('/cart/del2/{goods_id}','Cart\CartController@del2')->middleware('chec
 //商品
 Route::any('/goods/{goods_id}','Goods\GoodsController@goods')->middleware('check.login.token');   //商品详情
 
-Route::any('/goods2/list','Goods\GoodsController@goods2')->middleware('check.login.token');   //商品展示
+Route::any('/goods2/list','Goods\GoodsController@goods2');   //商品展示
 //添加订单
 Route::any('/order','Order\OrderController@add')->middleware('check.login.token');  ;  //订单
 //订单展示

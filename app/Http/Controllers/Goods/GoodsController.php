@@ -9,6 +9,10 @@ use App\Model\GoodsModel;
 
 class GoodsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     /**
      * 商品详情

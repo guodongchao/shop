@@ -35,11 +35,47 @@ class GoodsController extends Controller
         return view('goods.goods',$data);
     }
 
-    public function goods2(){
-        $goods2 = GoodsModel::paginate(2);
+
+
+
+
+
+    public function goods2(Request $request){
+
+        $u_name = $request->input('name');
+
+        if($u_name==''){
+            $goods2 = GoodsModel::paginate(3);
+        }else{
+            $goods2 = GoodsModel::where('goods_name', 'like', "%$u_name%")->paginate(3);
+    }
         $list = [
             'data'=>$goods2
         ];
         return view('goods.goodsList',$list);
     }
+
+
+
+
+
+
+    public function file(){
+
+        return view('goods.goodsfile');
+    }
+    public function fileInse(Request $request){
+        echo 1;exit;
+        $res=$request->file('pdf');
+        //var_dump($res);
+        $ext  = $res->extension();
+        if($ext != 'pdf'){
+            die("请上传PDF格式");
+        }
+        $result = $res->storeAs(date('Ymd'),str_random(5) . '.pdf');
+        if($result){
+            echo '上传成功';
+        }
+    }
+
 }

@@ -4,6 +4,12 @@
     <p style="color: red;">购物车商品展示</p>
 @endsection
 @section('content')
+    <form action="/goods2/list"method="post">
+        {{csrf_field()}}
+        <input type="text" name="name">
+        <input type="submit" value="搜索">
+    </form>
+
 
     <table class="table table-hover" >
         <tr class="active">

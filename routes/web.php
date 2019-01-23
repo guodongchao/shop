@@ -52,11 +52,9 @@ Route::any('/view/test2','Test\TestController@viewTest2');
 Route::any('/check_cookie','Test\TestController@checkCookie');
 
 Route::middleware(['log.click'])->group(function(){
-    Route::any('/view/test1','Test\TestController@viewTest1');
-    Route::any('/view/test2','Test\TestController@viewTest2');
-    Route::any('/check_cookie','Test\TestController@checkCookie');
+    Route::any('/goods2/list','Goods\GoodsController@goods2');   //商品展示
 });
-
+Route::any('/goods2/list','Goods\GoodsController@goods2');   //商品展示
 
 
 //用户注册
@@ -80,8 +78,8 @@ Route::any('/cart/del2/{cart_id}','Cart\CartController@del2');  //删除商品
 //商品
 Route::any('/goods/{goods_id}','Goods\GoodsController@goods');   //商品详情
 
-Route::any('/goods2/list','Goods\GoodsController@goods2');   //商品展示
-//添加订单
+
+////添加订单
 Route::any('/order','Order\OrderController@add'); //订单
 //订单展示
 Route::any('/order/list','Order\OrderController@list');   //订单展示
@@ -106,3 +104,6 @@ Route::any('/alipay/{order_id}','Pay\AlipayController@pay');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/update','Goods\GoodsController@file');
+Route::post('/update/inse','Goods\GoodsController@fileInse');

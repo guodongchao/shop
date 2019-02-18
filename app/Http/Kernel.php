@@ -39,7 +39,7 @@ class Kernel extends HttpKernel
         ],
 
         'log.click' =>[
-            clickLog::class
+            ClickLog::class
         ],
 
         'api' => [
@@ -63,5 +63,6 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'check.cookie'=>\App\Http\Middleware\CheckCookie::class,
+        'log.click'=>\App\Http\Middleware\clickLog::class,
     ];
 }

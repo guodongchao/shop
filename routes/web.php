@@ -51,9 +51,13 @@ Route::any('/view/test1','Test\TestController@viewTest1');
 Route::any('/view/test2','Test\TestController@viewTest2');
 Route::any('/check_cookie','Test\TestController@checkCookie');
 
-Route::middleware(['log.click'])->group(function(){
-    Route::any('/goods2/list','Goods\GoodsController@goods2');   //商品展示
-});
+
+
+
+
+
+
+
 Route::any('/goods2/list','Goods\GoodsController@goods2');   //商品展示
 
 
@@ -98,12 +102,15 @@ Route::get('/alipay2/return','Pay\AlipayController@aliReturn');        //支付�
 
 //支付
 Route::any('/alipay/{order_id}','Pay\AlipayController@pay');
-
-
-
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
-
 Route::get('/update','Goods\GoodsController@file');
 Route::post('/update/inse','Goods\GoodsController@fileInse');
+
+
+//微信
+Route::get('/weixin/test','Weixin\WeixinController@test');
+Route::get('/weixin/valid','Weixin\WeixinController@validToken');
+Route::get('/weixin/valid1','Weixin\WeixinController@validToken1');
+Route::post('/weixin/valid1','Weixin\WeixinController@wxEvent');        //接收微信服务器事件推送
+Route::post('/weixin/valid','Weixin\WeixinController@validToken');

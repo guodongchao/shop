@@ -45,9 +45,9 @@ class WeixinController extends Controller
 
         $event = $xml->Event;                       //事件类型
         //var_dump($xml);echo '<hr>';
-
+        $openid = $xml->FromUserName;               //用户openid
         if($event=='subscribe'){
-            $openid = $xml->FromUserName;               //用户openid
+
             $sub_time = $xml->CreateTime;               //扫码关注时间
 
 
@@ -200,7 +200,7 @@ class WeixinController extends Controller
                         [
                             "type"=>"click",
                             "name"=>"赞一下我们",
-                            "key"=>"自动回复",
+                            "key"=>"kefu01",
                         ]
                     ]
                 ]

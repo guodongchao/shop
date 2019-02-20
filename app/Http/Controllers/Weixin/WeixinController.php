@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Wechat;
+namespace App\Http\Controllers\Weixin;
 
 use App\Model\WeixinUser;
 use Illuminate\Http\Request;

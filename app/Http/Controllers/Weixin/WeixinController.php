@@ -50,42 +50,26 @@ class WeixinController extends Controller
 
         // 处理用户发送消息
         if (isset($xml->MsgType)) {
-            if ($xml->MsgType == 'text') {            //用户发送文本消息
+            if($xml->MsgType=='text'){            //用户发送文本消息
                 $msg = $xml->Content;
-                $xml_response =
-                    '<xml>
-                        <ToUserName><![CDATA[' . $openid . ']]></ToUserName>
-                        <FromUserName><![CDATA[' . $xml->ToUserName . ']]></FromUserName>
-                        <CreateTime>' . time() . '</CreateTime>
-                        <MsgType><![CDATA[text]]></MsgType>
-                        <Content><![CDATA[' . $msg . date('Y-m-d H:i:s') . ']]></Content>
-                     </xml>';
+                $xml_response =     '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. $msg. date('Y-m-d H:i:s') .']]></Content></xml>';
                 echo $xml_response;
-            } elseif ($xml->MsgType == 'image') {       //用户发送图片信息
+            }elseif($xml->MsgType=='image'){       //用户发送图片信息
                 //视业务需求是否需要下载保存图片
-                if (1) {  //下载图片素材
+                if(1){  //下载图片素材
                     $this->dlWxImg($xml->MediaId);
-                    $xml_response =
-                        '<xml>
-                            <ToUserName><![CDATA[' . $openid . ']]></ToUserName>
-                            <FromUserName><![CDATA[' . $xml->ToUserName . ']]></FromUserName>
-                            <CreateTime>' . time() . '</CreateTime>
-                            <MsgType><![CDATA[text]]></MsgType>
-                            <Content><![CDATA[' . str_random(10) . ' >>> ' . date('Y-m-d H:i:s') . ']]></Content>
-                         </xml>';
+                    $xml_response = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. str_random(10) . ' >>> ' . date('Y-m-d H:i:s') .']]></Content></xml>';
                     echo $xml_response;
                 }
             }elseif($xml->MsgType=='voice'){        //处理语音信息
                 $this->dlVoice($xml->MediaId);
                 $msg = $xml->Content;
-                $xml_response =
-                    '<xml>
-                        <ToUserName><![CDATA[' . $openid . ']]></ToUserName>
-                        <FromUserName><![CDATA[' . $xml->ToUserName . ']]></FromUserName>
-                        <CreateTime>' . time() . '</CreateTime>
-                        <MsgType><![CDATA[text]]></MsgType>
-                        <Content><![CDATA[' . $msg . date('Y-m-d H:i:s') . ']]></Content>
-                     </xml>';
+                $xml_response =     '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. $msg. date('Y-m-d H:i:s') .']]></Content></xml>';
+                echo $xml_response;
+            }elseif($xml->MsgType=='video'){        //处理视频信息
+                $this->dlvideo($xml->MediaId);
+                $msg = $xml->Content;
+                $xml_response =     '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. $msg. date('Y-m-d H:i:s') .']]></Content></xml>';
                 echo $xml_response;
             }
 
@@ -223,6 +207,36 @@ class WeixinController extends Controller
             echo '保存失败';
         }
     }
+
+    /**
+     * 下载语音文件
+     * @param $media_id
+     */
+    public function dlvideo($media_id)
+    {
+        $url = 'https://api.weixin.qq.com/cgi-bin/media/get?access_token='.$this->getWXAccessToken().'&media_id='.$media_id;
+
+        $client = new GuzzleHttp\Client();
+        $response = $client->get($url);
+        //$h = $response->getHeaders();
+        //echo '<pre>';print_r($h);echo '</pre>';die;
+        //获取文件名
+        $file_info = $response->getHeader('Content-disposition');
+        $file_name = substr(rtrim($file_info[0],'"'),-20);
+
+        $wx_image_path = 'wx/video/'.$file_name;
+        //保存图片
+        $r = Storage::disk('local')->put($wx_image_path,$response->getBody());
+        if($r){     //保存成功
+            echo '保存成功';
+        }else{      //保存失败
+            echo '保存失败';
+        }
+    }
+
+
+
+
 
     /**
      * 客服处理

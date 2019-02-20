@@ -71,52 +71,49 @@ class WeixinController extends Controller
                 echo $xml_response;
             }
 
-            if($event=='subscribe'){
+            exit();
+        }
 
-                $sub_time = $xml->CreateTime;               //扫码关注时间
+
+        if($event=='subscribe'){
+
+            $sub_time = $xml->CreateTime;               //扫码关注时间
 
 
-                echo 'openid: '.$openid;echo '</br>';
-                echo '$sub_time: ' . $sub_time;
+            echo 'openid: '.$openid;echo '</br>';
+            echo '$sub_time: ' . $sub_time;
 
-                //获取用户信息
-                $user_info = $this->getUserInfo(1);
-                echo '<pre>';print_r($user_info);echo '</pre>';
+            //获取用户信息
+            $user_info = $this->getUserInfo(1);
+            echo '<pre>';print_r($user_info);echo '</pre>';
 
-                //保存用户信息
-                $u = WeixinUser::where(['openid'=>$openid])->first();
-                //var_dump($u);die;
-                if($u){       //用户不存在
-                    echo '用户已存在';
-                }else{
-                    $user_data = [
-                        'openid'            => $openid,
-                        'add_time'          => time(),
-                        'nickname'          => $user_info['nickname'],
-                        'sex'               => $user_info['sex'],
-                        'headimgurl'        => $user_info['headimgurl'],
-                        'subscribe_time'    => $sub_time,
-                    ];
+            //保存用户信息
+            $u = WeixinUser::where(['openid'=>$openid])->first();
+            //var_dump($u);die;
+            if($u){       //用户不存在
+                echo '用户已存在';
+            }else{
+                $user_data = [
+                    'openid'            => $openid,
+                    'add_time'          => time(),
+                    'nickname'          => $user_info['nickname'],
+                    'sex'               => $user_info['sex'],
+                    'headimgurl'        => $user_info['headimgurl'],
+                    'subscribe_time'    => $sub_time,
+                ];
 
-                    $id = WeixinUser::insertGetId($user_data);      //保存用户信息
-                    var_dump($id);
-                }
-            }elseif($event=='CLICK'){               //click 菜单
-                if($xml->EventKey=='kefu01'){
-                    $this->kefu01($openid,$xml->ToUserName);
-                }
+                $id = WeixinUser::insertGetId($user_data);      //保存用户信息
+                var_dump($id);
             }
-
-            $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
-            file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);
+        }elseif($event=='CLICK'){               //click 菜单
+            if($xml->EventKey=='kefu01'){
+                $this->kefu01($openid,$xml->ToUserName);
+            }
         }
 
-
-
-        }
-
-
-
+        $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
+        file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);
+    }
     /**
      * 客服处理
      * @param $openid   用户openid

@@ -47,36 +47,6 @@ class WeixinController extends Controller
         $event = $xml->Event;                       //事件类型
         //var_dump($xml);echo '<hr>';
         $openid = $xml->FromUserName;               //用户openid
-
-        // 处理用户发送消息
-        if(isset($xml->MsgType)){
-            if($xml->MsgType=='text'){            //用户发送文本消息
-                $msg = $xml->Content;
-                $xml_response =     '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. $msg. date('Y-m-d H:i:s') .']]></Content></xml>';
-                echo $xml_response;
-            }elseif($xml->MsgType=='image'){       //用户发送图片信息
-                //视业务需求是否需要下载保存图片
-                if(1){  //下载图片素材
-                    $this->dlWxImg($xml->MediaId);
-                    $xml_response = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. str_random(10) . ' >>> ' . date('Y-m-d H:i:s') .']]></Content></xml>';
-                    echo $xml_response;
-                }
-            }elseif($xml->MsgType=='voice'){        //处理语音信息
-                $this->dlVoice($xml->MediaId);
-                $msg = $xml->Content;
-                $xml_response =     '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. $msg. date('Y-m-d H:i:s') .']]></Content></xml>';
-                echo $xml_response;
-            }elseif($xml->MsgType=='video'){        //处理语音信息
-                $this->dlvideo($xml->MediaId);
-                $msg = $xml->Content;
-                $xml_response =     '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. $msg. date('Y-m-d H:i:s') .']]></Content></xml>';
-                echo $xml_response;
-            }
-
-            exit();
-        }
-
-
         if($event=='subscribe'){
 
             $sub_time = $xml->CreateTime;               //扫码关注时间
@@ -112,6 +82,39 @@ class WeixinController extends Controller
                 $this->kefu01($openid,$xml->ToUserName);
             }
         }
+
+
+
+        // 处理用户发送消息
+        if(isset($xml->MsgType)){
+            if($xml->MsgType=='text'){            //用户发送文本消息
+                $msg = $xml->Content;
+                $xml_response =     '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. $msg. date('Y-m-d H:i:s') .']]></Content></xml>';
+                echo $xml_response;
+            }elseif($xml->MsgType=='image'){       //用户发送图片信息
+                //视业务需求是否需要下载保存图片
+                if(1){  //下载图片素材
+                    $this->dlWxImg($xml->MediaId);
+                    $xml_response = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. str_random(10) . ' >>> ' . date('Y-m-d H:i:s') .']]></Content></xml>';
+                    echo $xml_response;
+                }
+            }elseif($xml->MsgType=='voice'){        //处理语音信息
+                $this->dlVoice($xml->MediaId);
+                $msg = $xml->Content;
+                $xml_response =     '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. $msg. date('Y-m-d H:i:s') .']]></Content></xml>';
+                echo $xml_response;
+            }elseif($xml->MsgType=='video'){        //处理语音信息
+                $this->dlvideo($xml->MediaId);
+                $msg = $xml->Content;
+                $xml_response =     '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. $msg. date('Y-m-d H:i:s') .']]></Content></xml>';
+                echo $xml_response;
+            }
+
+            exit();
+        }
+
+
+
 
         $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
         file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);

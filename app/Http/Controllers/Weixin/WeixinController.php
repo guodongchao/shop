@@ -51,14 +51,8 @@ class WeixinController extends Controller
         if(isset($xml->MsgType)){
             if($xml->MsgType=='text'){            //用户发送文本消息
                 $msg = $xml->Content;
-                $xml_response = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName>
-                                       <FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName>
-                                       <CreateTime>'.time().'</CreateTime>
-                                       <MsgType><![CDATA[text]]></MsgType>
-                                       <Content><![CDATA['. $msg. date('Y-m-d H:i:s') .']]></Content>
-                                 </xml>';
+                $xml_response = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. $msg. date('Y-m-d H:i:s') .']]></Content></xml>';
                 echo $xml_response;
-                exit();
             }elseif($xml->MsgType=='image'){       //用户发送图片信息
                 //视业务需求是否需要下载保存图片
                 if(1){  //下载图片素材
@@ -69,6 +63,7 @@ class WeixinController extends Controller
             }elseif($xml->MsgType=='voice'){        //处理语音信息
                 $this->dlVoice($xml->MediaId);
             }
+
             exit();
         }
 

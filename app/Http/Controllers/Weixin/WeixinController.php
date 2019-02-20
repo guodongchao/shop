@@ -11,13 +11,17 @@ use Illuminate\Support\Facades\Storage;
 
 class WeixinController extends Controller
 {
+    //
+
     protected $redis_weixin_access_token = 'str:weixin_access_token';     //微信 access_token
+
     public function test()
     {
         //echo __METHOD__;
         //$this->getWXAccessToken();
         $this->getUserInfo(1);
     }
+
     /**
      * 首次接入
      */
@@ -28,6 +32,7 @@ class WeixinController extends Controller
         //file_put_contents('logs/weixin.log',$str,FILE_APPEND);
         echo $_GET['echostr'];
     }
+
     /**
      * 接收微信服务器事件推送
      */
@@ -39,105 +44,78 @@ class WeixinController extends Controller
         //解析XML
         $xml = simplexml_load_string($data);        //将 xml字符串 转换成对象
 
-        //记录日志
-        $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
-        file_put_contents('logs/wx_event.log', $log_str, FILE_APPEND);
-
         $event = $xml->Event;                       //事件类型
+        //var_dump($xml);echo '<hr>';
         $openid = $xml->FromUserName;               //用户openid
 
-
         // 处理用户发送消息
-        if (isset($xml->MsgType)) {
-            if ($xml->MsgType == 'text') {            //用户发送文本消息
+        if(isset($xml->MsgType)){
+            if($xml->MsgType=='text'){            //用户发送文本消息
                 $msg = $xml->Content;
-                $xml_response = '
-                 <xml>
-                 <ToUserName><![CDATA[' . $openid . ']]></ToUserName>
-                 <FromUserName><![CDATA[' . $xml->ToUserName . ']]></FromUserName>
-                 <CreateTime>' . time() . '</CreateTime>
-                 <MsgType><![CDATA[text]]></MsgType>
-                 <Content><![CDATA[' . $msg . date('Y-m-d H:i:s') . ']]></Content>
-                 </xml>';
+                $xml_response =     '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. $msg. date('Y-m-d H:i:s') .']]></Content></xml>';
                 echo $xml_response;
-            } elseif ($xml->MsgType == 'image') {       //用户发送图片信息
+            }elseif($xml->MsgType=='image'){       //用户发送图片信息
                 //视业务需求是否需要下载保存图片
-                if (1) {  //下载图片素材
+                if(1){  //下载图片素材
                     $this->dlWxImg($xml->MediaId);
-                    $xml_response = '
-                    <xml>
-                    <ToUserName><![CDATA[' . $openid . ']]></ToUserName>
-                    <FromUserName><![CDATA[' . $xml->ToUserName . ']]></FromUserName>
-                    <CreateTime>' . time() . '</CreateTime>
-                    <MsgType><![CDATA[text]]></MsgType>
-                    <Content><![CDATA[' . date('Y-m-d H:i:s') . ']]></Content>
-                    </xml>';
+                    $xml_response = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. str_random(10) . ' >>> ' . date('Y-m-d H:i:s') .']]></Content></xml>';
                     echo $xml_response;
                 }
-            } elseif ($xml->MsgType == 'video') {       //用户发送视频信息
-                if (1) {  //下载视频素材
-                    $this->dlVideo($xml->MediaId);
-                    $xml_response = '
-                    <xml>
-                    <ToUserName><![CDATA[' . $openid . ']]></ToUserName>
-                    <FromUserName><![CDATA[' . $xml->ToUserName . ']]></FromUserName>
-                    <CreateTime>' . time() . '</CreateTime>
-                    <MsgType><![CDATA[text]]></MsgType>
-                    <Content><![CDATA[' . date('Y-m-d H:i:s') . ']]></Content>
-                    </xml>';
-                    echo $xml_response;
-                }
-            } elseif ($xml->MsgType == 'voice') {        //处理语音信息
-                if (1) {  //下载语音素材
-                    $this->dlVoice($xml->MediaId);
-                    $xml_response = '
-                    <xml>
-                    <ToUserName><![CDATA[' . $openid . ']]></ToUserName>
-                    <FromUserName><![CDATA[' . $xml->ToUserName . ']]></FromUserName>
-                    <CreateTime>' . time() . '</CreateTime>
-                    <MsgType><![CDATA[text]]></MsgType>
-                    <Content><![CDATA[' . date('Y-m-d H:i:s') . ']]></Content>
-                    </xml>';
-                    echo $xml_response;
-                }
+            }elseif($xml->MsgType=='voice'){        //处理语音信息
+                $this->dlVoice($xml->MediaId);
+                $msg = $xml->Content;
+                $xml_response =     '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. $msg. date('Y-m-d H:i:s') .']]></Content></xml>';
+                echo $xml_response;
+            }elseif($xml->MsgType=='video'){        //处理语音信息
+                $this->dlvideo($xml->MediaId);
+                $msg = $xml->Content;
+                $xml_response =     '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. $msg. date('Y-m-d H:i:s') .']]></Content></xml>';
+                echo $xml_response;
+            }
 
-            }elseif ($xml->MsgType == 'event') {        //判断事件类型
-                if ($event == 'subscribe') {                        //扫码关注事件
-                    $sub_time = $xml->CreateTime;               //扫码关注时间
-                    //获取用户信息
-                    $user_info = $this->getUserInfo($openid);
-                    //var_dump($user_info);exit;
+            exit();
+        }
 
-                    //保存用户信息
-                    $u = WeixinUser::where(['openid' => $openid])->first();
-                    if ($u) {       //用户不存在
-                        echo '用户已存在';
-                    } else {
-                        $user_data = [
-                            'openid' => $openid,
-                            'add_time' => time(),
-                            'nickname' => $user_info['nickname'],
-                            'sex' => $user_info['sex'],
-                            'headimgurl' => $user_info['headimgurl'],
-                            'subscribe_time' => $sub_time,
-                        ];
-                        //print_r($user_data);
-                        $id = WeixinUser::insertGetId($user_data);      //保存用户信息
-                        //var_dump($id);
-                    }
-                } elseif ($event == 'CLICK') {               //click 菜单
-                    if ($xml->EventKey == 'kefu01') {       // 根据 EventKey判断菜单
-                        $this->kefu01($openid, $xml->ToUserName);
-                    }
-                }
 
+        if($event=='subscribe'){
+
+            $sub_time = $xml->CreateTime;               //扫码关注时间
+
+
+            echo 'openid: '.$openid;echo '</br>';
+            echo '$sub_time: ' . $sub_time;
+
+            //获取用户信息
+            $user_info = $this->getUserInfo(1);
+            echo '<pre>';print_r($user_info);echo '</pre>';
+
+            //保存用户信息
+            $u = WeixinUser::where(['openid'=>$openid])->first();
+            //var_dump($u);die;
+            if($u){       //用户不存在
+                echo '用户已存在';
+            }else{
+                $user_data = [
+                    'openid'            => $openid,
+                    'add_time'          => time(),
+                    'nickname'          => $user_info['nickname'],
+                    'sex'               => $user_info['sex'],
+                    'headimgurl'        => $user_info['headimgurl'],
+                    'subscribe_time'    => $sub_time,
+                ];
+
+                $id = WeixinUser::insertGetId($user_data);      //保存用户信息
+                var_dump($id);
+            }
+        }elseif($event=='CLICK'){               //click 菜单
+            if($xml->EventKey=='kefu01'){
+                $this->kefu01($openid,$xml->ToUserName);
             }
         }
+
+        $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
+        file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);
     }
-
-
-
-
     /**
      * 客服处理
      * @param $openid   用户openid
@@ -364,42 +342,6 @@ class WeixinController extends Controller
 
 
     }
-    public function all()
-    {
-        $access_token = $this->getWXAccessToken();
-        $url = 'https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token='.$access_token;
-        //var_dump($url);exit;
-        $client = new GuzzleHttp\Client(['base_url' => $url]);
-        $param = [
-            "filter"=>[
-                "is_to_all"=>true
-            ],
-            "text"=>[
-                "content"=>"哈喽"
-            ],
-            "msgtype"=>"text"
-        ];
-        ///var_dump($param);exit;
-        $r = $client->Request('POST', $url, [
-            'body' => json_encode($param, JSON_UNESCAPED_UNICODE)
-        ]);
-        //var_dump($r);exit;
-        $response_arr = json_decode($r->getBody(), true);
-        //echo '<pre>';
-        //print_r($response_arr);
-        // echo '</pre>';
-
-        if ($response_arr['errcode'] == 0) {
-            echo "发送成功";
-        } else {
-            echo "发送失败";
-            echo '</br>';
-            echo $response_arr['errmsg'];
-
-        }
-
-    }
-
 
 
 

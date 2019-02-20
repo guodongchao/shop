@@ -67,7 +67,7 @@ class WeixinController extends Controller
                 $xml_response =     '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. $msg. date('Y-m-d H:i:s') .']]></Content></xml>';
                 echo $xml_response;
             }elseif($xml->MsgType=='video'){        //处理视频信息
-                $this->dlVoice($xml->MediaId);
+                $this->dlvideo($xml->MediaId);
                 $msg = $xml->Content;
                 $xml_response =     '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. $msg. date('Y-m-d H:i:s') .']]></Content></xml>';
                 echo $xml_response;

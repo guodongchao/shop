@@ -67,10 +67,10 @@ class WeixinController extends Controller
                 $xml_response =     '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName>
                                           <FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName>
                                           <CreateTime>'.time().'</CreateTime>
-                                          <MsgType><![CDATA[voice]]></MsgType>
+                                          <MsgType><![CDATA[text]]></MsgType>
                                           <Content><![CDATA['. $msg. date('Y-m-d H:i:s') .']]></Content>
                                      </xml>';
-                echo $xml_response;
+                echo $msg;
             }
 
             exit();

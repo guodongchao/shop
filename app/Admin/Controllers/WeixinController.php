@@ -25,6 +25,7 @@ class WeixinController extends Controller
         return $content
             ->header('Index')
             ->description('description')
+            ->description('id')
             ->body($this->grid());
     }
 

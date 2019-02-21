@@ -58,7 +58,7 @@ class WeixinController extends Controller
             }elseif($xml->MsgType=='image'){       //用户发送图片信息
                 //视业务需求是否需要下载保存图片
                 if(1){  //下载图片素材
-                    $a=$this->dlWxImg($xml->MediaId);
+                    $file_name=$this->dlWxImg($xml->MediaId);
                     $xml_response = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. str_random(10) . ' >>> ' . date('Y-m-d H:i:s') .']]></Content></xml>';
                     echo $xml_response;
                     $data = [
@@ -68,7 +68,7 @@ class WeixinController extends Controller
                         'media_id' => $xml->MediaId,
                         'format' => $xml->Format,
                         'msg_id' => $xml->MsgId,
-                        'local_file_name' => $a=56
+                        'local_file_name' => $file_name
                     ];
 
                     $m_id = WxMedia::insertGetId($data);
@@ -157,6 +157,7 @@ class WeixinController extends Controller
         }else{      //保存失败
             echo '保存失败';
         }
+        return $file_name;
     }
 
     public function all()

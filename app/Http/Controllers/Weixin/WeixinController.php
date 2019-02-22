@@ -490,6 +490,13 @@ class WeixinController extends Controller
 
     }
 
+    public function add()
+    {
 
+        return view('weixin.add');
+
+
+
+    }
 
 }

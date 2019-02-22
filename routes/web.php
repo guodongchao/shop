@@ -122,6 +122,12 @@ Route::get('/form/show','Weixin\WeixinController@formShow');     //表单测试
 Route::post('/form/test','Weixin\WeixinController@formTest');     //表单测试
 
 
+
 Route::get('/weixin/material/list','Weixin\WeixinController@materialList');     //获取永久素材列表
 Route::get('/weixin/material/upload','Weixin\WeixinController@upMaterial');     //上传永久素材
 Route::post('/weixin/material','Weixin\WeixinController@materialTest');     //创建菜单
+
+
+
+Route::get('/weixin/add','Weixin\WeixinController@add');     //消息测试
+Route::post('/weixin/adds','Weixin\WeixinController@adds');     //消息测试

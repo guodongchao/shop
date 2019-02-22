@@ -118,10 +118,10 @@ Route::post('/weixin/valid','Weixin\WeixinController@validToken');
 Route::get('/weixin/create_menu','Weixin\WeixinController@createMenu');     //创建菜单
 Route::get('/weixin/qun','Weixin\WeixinController@all');     //创建菜单
 
-Route::get('/form/show','Wechat\WechatController@formShow');     //表单测试
-Route::post('/form/test','Wechat\WechatController@formTest');     //表单测试
+Route::get('/form/show','weixin\weixinController@formShow');     //表单测试
+Route::post('/form/test','weixin\weixinController@formTest');     //表单测试
 
 
-Route::get('/Wechat/material/list','Wechat\WechatController@materialList');     //获取永久素材列表
-Route::get('/Wechat/material/upload','Wechat\WechatController@upMaterial');     //上传永久素材
-Route::post('/Wechat/material','Wechat\WechatController@materialTest');     //创建菜单
+Route::get('/weixin/material/list','weixin\weixinController@materialList');     //获取永久素材列表
+Route::get('/weixin/material/upload','weixin\weixinController@upMaterial');     //上传永久素材
+Route::post('/weixin/material','weixin\weixinController@materialTest');     //创建菜单

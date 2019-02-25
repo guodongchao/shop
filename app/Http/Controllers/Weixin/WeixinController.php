@@ -538,6 +538,9 @@ class WeixinController extends Controller
         ];
         $res=$client->request('POST', $url, ['body' => json_encode($data,JSON_UNESCAPED_UNICODE)]);
         $res_arr=json_decode($res->getBody(),true);
+
+
+
         if($res_arr['errcode']==0&&$res_arr['errmsg']=='ok'){
             //将聊天记录保存到数据库
             $data=[

@@ -22,7 +22,7 @@ setInterval(function(){
             }
         }
     });
-},5000);
+},1000);
 
 // 客服发送消息 begin
 $("#send_msg_btn").click(function(e){

@@ -30,10 +30,11 @@ $("#send_msg_btn").click(function(e){
     var send_msg = $("#send_msg").val().trim();
     var openid = $("#openid").val().trim();
 
-
-    var msg_str = '<p style="color: mediumorchid"> >>>>> '+send_msg+'</p>';
     $("#chat_div").append(msg_str);
-    $("#send_msg").val("")
+    $("#send_msg").val("");
+
+
+
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

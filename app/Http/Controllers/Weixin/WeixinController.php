@@ -520,29 +520,36 @@ class WeixinController extends Controller
 
     public function getChatMsgs()
     {
-        $data = file_get_contents("php://input");
-        //解析XML
-        $xml = simplexml_load_string($data);        //将 xml字符串 转换成对象
 
         $send_msg = $_GET['send_msg'];  //用户openid
         $openid = $_GET['openid'];        //上次聊天位置
 
-        $data = [
-            'msg'       => $send_msg,
-            'msgid'     => '空',
-            'openid'    => $openid,
-            'msg_type'  => 2,        // 1用户发送消息 2客服发送消息
-            'add_time'  =>time()
+        //获取access_token
+        $access_token=$this->getWXAccessToken();
+        $url='https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token='.$access_token;
+        //请求微信接口
+        $client = new GuzzleHttp\Client(['base_uri' => $url]);
+        $data=[
+            "touser"=>$openid,
+            'msgtype'=>'text',
+            'text'=>[
+                "content"=>$send_msg
+            ]
         ];
-
-        $id = WeixinChatModel::insertGetId($data);
-        var_dump($id);
-         $xml_response =     '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName>
-                                <FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName>
-                                <CreateTime>'.time().'</CreateTime>
-                                <MsgType><![CDATA[text]]></MsgType>
-                                <Content><![CDATA['. $send_msg. date('Y-m-d H:i:s') .']]></Content></xml>';
-         echo $xml_response;
+        $res=$client->request('POST', $url, ['body' => json_encode($data,JSON_UNESCAPED_UNICODE)]);
+        $res_arr=json_decode($res->getBody(),true);
+        if($res_arr['errcode']==0&&$res_arr['errmsg']=='ok'){
+            //将聊天记录保存到数据库
+            $data=[
+                'openid'=>$openid,
+                'content'=>$send_msg,
+                'send_people'=>'客服',
+                'send_time'=>time()
+            ];
+            $res=WeixinChatModel::insertGetId($data);
+            var_dump($res);
+        }
+        
 
 
     }

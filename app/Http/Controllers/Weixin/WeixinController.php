@@ -518,4 +518,34 @@ class WeixinController extends Controller
 
     }
 
+    public function getChatMsgs()
+    {
+
+
+        $send_msg = $_GET['send_msg'];  //用户openid
+        $msg_str = $_GET['msg_str'];        //上次聊天位置
+        echo $msg_str;
+        echo $send_msg;exit;
+
+
+        $msg = WeixinChatModel::where(['openid'=>$openid])->where('id','>',$pos)->first();
+        //$msg = WeixinChatModel::where(['openid'=>$openid])->where('id','>',$pos)->get();
+        if($msg){
+            $response = [
+                'errno' => 0,
+                'data'  => $msg->toArray()
+            ];
+
+        }else{
+            $response = [
+                'errno' => 50001,
+                'msg'   => '服务器异常，请联系管理员'
+            ];
+        }
+
+        die( json_encode($response));
+
+    }
+
+
 }

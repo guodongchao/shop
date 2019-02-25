@@ -504,11 +504,11 @@ class WeixinController extends Controller
     /**
      * 微信客服聊天
      */
-    public function chatView()
+    public function chatView($id)
     {
-
+        $weixinInfo=WeixinUser::where(['id'=>$id])->first();
         $data = [
-            'openid'    => 'oLreB1jAnJFzV_8AGWUZlfuaoQto'
+            'openid'    => $weixinInfo->openid
         ];
         return view('weixin.chat',$data);
     }

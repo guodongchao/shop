@@ -29,12 +29,7 @@ $("#send_msg_btn").click(function(e){
     e.preventDefault();
     var send_msg = $("#send_msg").val().trim();
     var openid = $("#openid").val().trim();
-
-    $("#chat_div").append(msg_str);
-    $("#send_msg").val("");
-
-
-
+    
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

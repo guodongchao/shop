@@ -549,7 +549,7 @@ class WeixinController extends Controller
             $res=WeixinChatModel::insertGetId($data);
             var_dump($res);
         }
-        
+
 
 
     }

@@ -529,7 +529,7 @@ class WeixinController extends Controller
 
         $data = [
             'msg'       => $send_msg,
-            'msgid'     => $xml->MsgId,
+            'msgid'     => '空',
             'openid'    => $openid,
             'msg_type'  => 2,        // 1用户发送消息 2客服发送消息
             'add_time'  =>time()

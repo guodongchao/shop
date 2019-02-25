@@ -506,6 +506,7 @@ class WeixinController extends Controller
      */
     public function chatView($id)
     {
+        //根据id查询openid
         $weixinInfo=WeixinUser::where(['id'=>$id])->first();
         $data = [
             'openid'    => $weixinInfo->openid

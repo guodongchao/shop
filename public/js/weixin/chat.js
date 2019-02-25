@@ -28,6 +28,9 @@ setInterval(function(){
 $("#send_msg_btn").click(function(e){
     e.preventDefault();
     var send_msg = $("#send_msg").val().trim();
+    var openid = $("#openid").val().trim();
+
+
     var msg_str = '<p style="color: mediumorchid"> >>>>> '+send_msg+'</p>';
     $("#chat_div").append(msg_str);
     $("#send_msg").val("")
@@ -35,7 +38,7 @@ $("#send_msg_btn").click(function(e){
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        url     :   '/weixin/chat/get_msgs?send_msg=' + send_msg + '&msg_str=' + $("#msg_str").val(),
+        url     :   '/weixin/chat/get_msgs?send_msg=' + send_msg + '&openid=' + openid,
         type    :   'get',
         dataType:   'json',
         success :   function(d){

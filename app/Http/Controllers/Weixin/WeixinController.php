@@ -520,30 +520,30 @@ class WeixinController extends Controller
 
     public function getChatMsgs()
     {
-
+        $data = file_get_contents("php://input");
+        //解析XML
+        $xml = simplexml_load_string($data);        //将 xml字符串 转换成对象
 
         $send_msg = $_GET['send_msg'];  //用户openid
-        $msg_str = $_GET['msg_str'];        //上次聊天位置
-        echo $msg_str;
-        echo $send_msg;exit;
+        $openid = $_GET['openid'];        //上次聊天位置
 
+        $data = [
+            'msg'       => $send_msg,
+            'msgid'     => $xml->MsgId,
+            'openid'    => $openid,
+            'msg_type'  => 2,        // 1用户发送消息 2客服发送消息
+            'add_time'  =>time()
+        ];
 
-        $msg = WeixinChatModel::where(['openid'=>$openid])->where('id','>',$pos)->first();
-        //$msg = WeixinChatModel::where(['openid'=>$openid])->where('id','>',$pos)->get();
-        if($msg){
-            $response = [
-                'errno' => 0,
-                'data'  => $msg->toArray()
-            ];
+        $id = WeixinChatModel::insertGetId($data);
+        var_dump($id);
+         $xml_response =     '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName>
+                                <FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName>
+                                <CreateTime>'.time().'</CreateTime>
+                                <MsgType><![CDATA[text]]></MsgType>
+                                <Content><![CDATA['. $send_msg. date('Y-m-d H:i:s') .']]></Content></xml>';
+         echo $xml_response;
 
-        }else{
-            $response = [
-                'errno' => 50001,
-                'msg'   => '服务器异常，请联系管理员'
-            ];
-        }
-
-        die( json_encode($response));
 
     }
 

@@ -487,7 +487,6 @@ class WeixinController extends Controller
      */
     public function chatView()
     {
-        //根据id查询openid
         $data = [
             'openid'    => 'ohyQX1lJrE-QLA_ERenqRK7AvBb0'
         ];

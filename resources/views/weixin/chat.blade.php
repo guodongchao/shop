@@ -1,5 +1,4 @@
-@extends('layouts.bst')
-
+@extends('layout.main')
 @section('content')
     <div class="container">
         <h2>开聊... openid:{{$openid}}</h2>

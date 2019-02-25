@@ -126,5 +126,5 @@ Route::get('/weixin/material/upload','Weixin\WeixinController@upMaterial');     
 Route::post('/weixin/material','Weixin\WeixinController@materialTest');     //创建菜单
 
 //微信聊天
-Route::get('/weixin/kefu/chat/{id}','Weixin\WeixinController@chatView');     //客服聊天
+Route::get('/weixin/kefu/chat','Weixin\WeixinController@chatView');     //客服聊天
 Route::get('/weixin/chat/get_msg','Weixin\WeixinController@getChatMsg');     //获取用户聊天信息

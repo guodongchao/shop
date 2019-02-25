@@ -259,11 +259,6 @@ class WeixinController extends Controller
             echo '保存失败';
         }
     }
-
-
-
-
-
     /**
      * 客服处理
      * @param $openid   用户openid
@@ -281,8 +276,6 @@ class WeixinController extends Controller
             </xml>';
         echo $xml_response;
     }
-
-
     /**
      * 接收事件推送
      */
@@ -296,13 +289,11 @@ class WeixinController extends Controller
         $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
         file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);
     }
-
     /**
      * 获取微信AccessToken
      */
     public function getWXAccessToken()
     {
-
         //获取缓存
         $token = Redis::get($this->redis_weixin_access_token);
         if(!$token){        // 无缓存 请求微信接口
@@ -317,7 +308,6 @@ class WeixinController extends Controller
         return $token;
 
     }
-
     /**
      * 获取用户信息
      * @param $openid
@@ -327,7 +317,6 @@ class WeixinController extends Controller
         //$openid = 'oLreB1jAnJFzV_8AGWUZlfuaoQto';
         $access_token = $this->getWXAccessToken();
         $url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$access_token.'&openid='.$openid.'&lang=zh_CN';
-
         $data = json_decode(file_get_contents($url),true);
         //echo '<pre>';print_r($data);echo '</pre>';
         return $data;
@@ -406,7 +395,6 @@ class WeixinController extends Controller
 
         }
     }
-
     /**
      * 获取永久素材列表
      */
@@ -435,16 +423,9 @@ class WeixinController extends Controller
 
     }
 
-
-
-
-
     public function formShow()
     {
-
         return view('weixin.weixin');
-
-
 
     }
 
@@ -504,12 +485,11 @@ class WeixinController extends Controller
     /**
      * 微信客服聊天
      */
-    public function chatView($id)
+    public function chatView()
     {
         //根据id查询openid
-        $weixinInfo=WeixinUser::where(['id'=>$id])->first();
         $data = [
-            'openid'    => $weixinInfo->openid
+            'openid'    => 'ohyQX1lJrE-QLA_ERenqRK7AvBb0'
         ];
         return view('weixin.chat',$data);
     }

@@ -542,9 +542,10 @@ class WeixinController extends Controller
             //将聊天记录保存到数据库
             $data=[
                 'openid'=>$openid,
-                'content'=>$send_msg,
-                'send_people'=>'客服',
-                'send_time'=>time()
+                'msg'=>$send_msg,
+                'msgid'=>'空',
+                'add_time'=>time(),
+                'msg_type'=>2
             ];
             $res=WeixinChatModel::insertGetId($data);
             var_dump($res);

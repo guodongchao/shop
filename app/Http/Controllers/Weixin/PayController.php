@@ -58,10 +58,8 @@ class PayController extends Controller
         //echo '<pre>';print_r($data);echo '</pre>';
 
         //将 code_url 返回给前端，前端生成 支付二维码
-        $info=[
-            'code_url'=>$data->code_url
-        ];
-        return view('weixin.pay',$info);
+
+        return view('weixin.pay',['code_url'=>$data->code_url]);
     }
 
     public  function qr(){

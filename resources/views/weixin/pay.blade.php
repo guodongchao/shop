@@ -1,4 +1,4 @@
-@extends('layouts.bst')
+@extends('layout.main')
 
 @section('content')
     <h2 align="center">订单支付</h2>

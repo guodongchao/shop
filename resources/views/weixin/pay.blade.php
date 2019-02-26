@@ -4,7 +4,6 @@
 @endsection
 @section('footer')
     @parent
-    <script src="qrcode.js"></script>
     <script src="{{ asset('/qrcodejs/qrcode.js')}}"></script>
 @endsection
 

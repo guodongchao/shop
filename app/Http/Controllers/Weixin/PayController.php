@@ -17,7 +17,7 @@ class PayController extends Controller
     public function test()
     {
 
-        
+
         $total_fee = 1;         //用户要支付的总金额
         $order_id = OrderModel::generateOrderSN();
 

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Weixin\WXBizDataCryptController;
 use App\Model\OrderModel;
-
+use GuzzleHttp;
 class PayController extends Controller
 {
     //
@@ -62,9 +62,6 @@ class PayController extends Controller
         return view('weixin.pay',['code_url'=>$data->code_url]);
     }
 
-    public  function qr(){
-        return view('weixin.pay');
-    }
     protected function ToXml()
     {
         if(!is_array($this->values)
@@ -181,6 +178,21 @@ class PayController extends Controller
             if($sign){       //签名验证成功
                 //TODO 逻辑处理  订单状态更新
 
+            }else if($xml->return_code=='SUCCESS'){
+
+                $access_token=$this->getWXAccessToken();
+                $url='https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token='.$access_token;
+                //请求微信接口
+                $client = new GuzzleHttp\Client(['base_uri' => $url]);
+                $data=[
+                    "touser"=>'ohyQX1lJrE-QLA_ERenqRK7AvBb0',
+                    'msgtype'=>'text',
+                    'text'=>[
+                        "content"=>'支付成功'
+                    ]
+                ];
+                $res=$client->request('POST', $url, ['body' => json_encode($data,JSON_UNESCAPED_UNICODE)]);
+                
             }else{
                 //TODO 验签失败
                 echo '验签失败，IP: '.$_SERVER['REMOTE_ADDR'];

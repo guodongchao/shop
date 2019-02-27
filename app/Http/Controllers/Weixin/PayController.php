@@ -53,7 +53,7 @@ class PayController extends Controller
 //		echo 'result_code: '.$data->result_code;echo '<br>';
 //		echo 'prepay_id: '.$data->prepay_id;echo '<br>';
 //		echo 'trade_type: '.$data->trade_type;echo '<br>';
-		echo 'code_url: '.$data->code_url;echo '<br>';
+		//echo 'code_url: '.$data->code_url;echo '<br>';
 //        die;
         //echo '<pre>';print_r($data);echo '</pre>';
 

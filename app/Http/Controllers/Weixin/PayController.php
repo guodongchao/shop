@@ -19,6 +19,7 @@ class PayController extends Controller
 
 
         $total_fee = 1;         //用户要支付的总金额
+        $order_idd = OrderModel::generateOrderSN();
 
         $order_info = [
             'appid'         =>  env('WEIXIN_APPID_0'),      //微信支付绑定的服务号的APPID
@@ -26,11 +27,12 @@ class PayController extends Controller
             'nonce_str'     => str_random(16),             // 随机字符串
             'sign_type'     => 'MD5',
             'body'          => '测试订单-'.mt_rand(1111,9999) . str_random(6),
-            'out_trade_no'  => $order_id,                       //本地订单号
+            'out_trade_no'  => $order_idd,                       //本地订单号
             'total_fee'     => $total_fee,
             'spbill_create_ip'  => $_SERVER['REMOTE_ADDR'],     //客户端IP
             'notify_url'    => $this->weixin_notify_url,        //通知回调地址
-            'trade_type'    => 'NATIVE'                         // 交易类型
+            'trade_type'    => 'NATIVE',                         // 交易类型
+            'order_id'         =>$order_id
         ];
 
 
@@ -185,11 +187,11 @@ class PayController extends Controller
             }
 
             $info = [
-                'is_pay'        => 2,       //支付状态  0未支付 1已支付
+                'is_pay'        => 2,       //支付状态  1未支付 2已支付
             ];
 
-            $res=OrderModel::where(['order'         =>$xml->out_trade_no])->update($info);
-            
+            OrderModel::where(['order_id'=>$xml->order_id])->update($info);
+
         }
 
         $response = '<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>';

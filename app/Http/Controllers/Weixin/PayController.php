@@ -172,27 +172,17 @@ class PayController extends Controller
         $xml = simplexml_load_string($data);
 
         if($xml->result_code=='SUCCESS' && $xml->return_code=='SUCCESS'){      //微信支付成功回调
+            $code_url='空';
+            headers("refresh:1;url='/weixin/pay/qr/$code_url'");
             //验证签名
             $sign = true;
 
             if($sign){       //签名验证成功
                 //TODO 逻辑处理  订单状态更新
-
+                $code_url='空';
+                headers("refresh:1;url='/weixin/pay/qr/$code_url'");
             }else if($xml->return_code=='SUCCESS'){
 
-                $access_token=$this->getWXAccessToken();
-                $url='https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token='.$access_token;
-                //请求微信接口
-                $client = new GuzzleHttp\Client(['base_uri' => $url]);
-                $data=[
-                    "touser"=>'ohyQX1lJrE-QLA_ERenqRK7AvBb0',
-                    'msgtype'=>'text',
-                    'text'=>[
-                        "content"=>'支付成功'
-                    ]
-                ];
-                $res=$client->request('POST', $url, ['body' => json_encode($data,JSON_UNESCAPED_UNICODE)]);
-                $res_arr=json_decode($res->getBody(),true);
                 $code_url='空';
                 headers("refresh:1;url='/weixin/pay/qr/$code_url'");
             }else{

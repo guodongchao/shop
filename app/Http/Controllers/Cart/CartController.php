@@ -10,6 +10,8 @@ use App\Http\Controllers\Controller;
 class CartController extends Controller
 {
 
+    const CART = 'cart';
+
     public function __construct()
     {
 /*
@@ -31,19 +33,7 @@ class CartController extends Controller
 
     public function index(Request $request)
     {
-/*
-        $goods = session()->get('cart_goods');
-     //   var_dump($goods);exit;
-        if(empty($goods)){
-            echo '购物车是空的';
-        }else{
-            foreach($goods as $k=>$v){
-                echo 'Goods ID: '.$v;echo '</br>';
-                $detail = GoodsModel::where(['goods_id'=>$v])->first()->toArray();
-                echo '<pre>';print_r($detail);echo '</pre>';
-            }
-        }
-*/
+
         $cart_goods = CartModel::where(['uid'=>$this->uid])->get()->toArray();
         if(empty($cart_goods)){
             die("购物车是空的");
@@ -63,7 +53,8 @@ class CartController extends Controller
         $data = [
             'list'  => $list
         ];
-        return view('cart.cart',$data);
+        dump($data);exit;
+        return view('' . self::CART . '.cart',$data);
 
 
     }

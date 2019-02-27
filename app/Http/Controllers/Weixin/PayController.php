@@ -59,8 +59,14 @@ class PayController extends Controller
         //echo '<pre>';print_r($data);echo '</pre>';
 
         //将 code_url 返回给前端，前端生成 支付二维码
+        $info = [
+            'code_url' => $data->code_url,
+            'title' => '微信二维码',
+            'order_id' => $order_sn
 
-        return view('weixin.pay',['code_url'=>$data->code_url]);
+        ];
+
+        return view('weixin.pay',$info);
     }
 
     protected function ToXml()
@@ -174,11 +180,27 @@ class PayController extends Controller
 
         if($xml->result_code=='SUCCESS' && $xml->return_code=='SUCCESS'){      //微信支付成功回调
 
+
+
+
+
+
+
+
+
+
+
             //验证签名
             $sign = true;
 
             if($sign){       //签名验证成功
                 //TODO 逻辑处理  订单状态更新
+                $info = [
+                    'state'        =>2,
+                    'order_price'    =>$xml->total_fee,
+                ];
+
+                OrderModel::where(['order_sn'=>$xml->out_trade_no])->update($info);
 
             }else{
                 //TODO 验签失败
@@ -198,6 +220,30 @@ class PayController extends Controller
         echo $response;
 
     }
+    /**
+     * 微信扫码成功
+     */
+    public function WxSuccess(Request $request)
+    {
+        $order_id = $request->input('order_id');
+        $where = [
+            'order_id'  =>  $order_id,
+        ];
+        $order_info = OrderModel::where($where)->first();
+        if($order_info['is_pay']==1){
+            $response = [
+                'error' => 0,
+                'msg'   => '支付成功',
+            ];
+        }else{
+            $response = [
+                'error' => 1,
+                'msg'   => '未支付',
+            ];
+        }
+        return $response;
+    }
+
     public function qr($code_url){
         $code_url='空';
         return view('weixin.pay',$code_url);

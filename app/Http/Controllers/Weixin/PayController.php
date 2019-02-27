@@ -172,19 +172,13 @@ class PayController extends Controller
         $xml = simplexml_load_string($data);
 
         if($xml->result_code=='SUCCESS' && $xml->return_code=='SUCCESS'){      //微信支付成功回调
-            $code_url='空';
-            headers("refresh:1;url='/weixin/pay/qr/$code_url'");
+
             //验证签名
             $sign = true;
 
             if($sign){       //签名验证成功
                 //TODO 逻辑处理  订单状态更新
-                $code_url='空';
-                headers("refresh:1;url='/weixin/pay/qr/$code_url'");
-            }else if($xml->return_code=='SUCCESS'){
 
-                $code_url='空';
-                headers("refresh:1;url='/weixin/pay/qr/$code_url'");
             }else{
                 //TODO 验签失败
                 echo '验签失败，IP: '.$_SERVER['REMOTE_ADDR'];
@@ -198,6 +192,7 @@ class PayController extends Controller
 
     }
     public function qr($code_url){
+        $code_url='空';
         return view('weixin.pay',$code_url);
     }
 

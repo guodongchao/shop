@@ -51,13 +51,6 @@ Route::any('/view/test1','Test\TestController@viewTest1');
 Route::any('/view/test2','Test\TestController@viewTest2');
 Route::any('/check_cookie','Test\TestController@checkCookie');
 
-
-
-
-
-
-
-
 Route::any('/goods2/list','Goods\GoodsController@goods2');   //商品展示
 
 

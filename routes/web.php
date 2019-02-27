@@ -130,7 +130,7 @@ Route::post('/weixin/pay/notice','Weixin\PayController@notice');     //微信支
 Route::get('/weixin/pay/qr/{code_url}','Weixin\PayController@qr');     //微信支付通知回调
 
 
-Route::get('/wechat/pay/wxsuccess','Wechat\PayController@WxSuccess');     //微信支付通知回调
+Route::get('/wechat/pay/wxsuccess','Weixin\PayController@WxSuccess');     //微信支付通知回调
 
 
 

@@ -21,9 +21,10 @@
                 <td class="danger">{{$v['add_time']}}</td>
                 <td class="warning">
                     <li class="btn">
-                        @if($v['state']==1)
-                        <a href="/order/payment/{{$v['order_id']}}">付款</a>
-                        @elseif($v['state']==2)
+                        @if($v['is_pay']==1)
+                        <a href="/order/payment/{{$v['order_id']}}">支付宝付款</a>
+                        <a href="/weixin/pay/test/{{$v['order_id']}}">微信付款</a>
+                        @elseif($v['is_pay']==2)
                         已付款
                         @endif
                     </li>

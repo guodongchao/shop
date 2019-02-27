@@ -14,12 +14,11 @@ class PayController extends Controller
     public $weixin_unifiedorder_url = 'https://api.mch.weixin.qq.com/pay/unifiedorder';
     public $weixin_notify_url = 'http://gdc.qianqianya.xyz/weixin/pay/notice';     //支付通知回调
 
-    public function test()
+    public function test($order_id)
     {
 
 
         $total_fee = 1;         //用户要支付的总金额
-        $order_id = OrderModel::generateOrderSN();
 
         $order_info = [
             'appid'         =>  env('WEIXIN_APPID_0'),      //微信支付绑定的服务号的APPID
@@ -185,6 +184,12 @@ class PayController extends Controller
                 // TODO 记录日志
             }
 
+            $info = [
+                'is_pay'        => 2,       //支付状态  0未支付 1已支付
+            ];
+
+            $res=OrderModel::where(['order'         =>$xml->out_trade_no])->update($info);
+            
         }
 
         $response = '<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>';

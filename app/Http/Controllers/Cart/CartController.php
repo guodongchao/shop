@@ -53,7 +53,6 @@ class CartController extends Controller
         $data = [
             'list'  => $list
         ];
-        dump($data);exit;
         return view('' . self::CART . '.cart',$data);
 
 

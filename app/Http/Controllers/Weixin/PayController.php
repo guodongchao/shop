@@ -14,7 +14,7 @@ class PayController extends Controller
     public $weixin_unifiedorder_url = 'https://api.mch.weixin.qq.com/pay/unifiedorder';
     public $weixin_notify_url = 'http://gdc.qianqianya.xyz/weixin/pay/notice';     //支付通知回调
 
-    public function test($order_id)
+    public function test()
     {
 
 
@@ -32,7 +32,7 @@ class PayController extends Controller
             'spbill_create_ip'  => $_SERVER['REMOTE_ADDR'],     //客户端IP
             'notify_url'    => $this->weixin_notify_url,        //通知回调地址
             'trade_type'    => 'NATIVE',                         // 交易类型
-            'order_id'         =>$order_id
+        
         ];
 
 

@@ -19,9 +19,8 @@
             colorLight : '#ffffff',
             correctLevel : QRCode.CorrectLevel.H
         });
-
         // 使用 API
         qrcode.clear();
-        qrcode.makeCode('new content');
+        qrcode.makeCode(code);
     </script>
 @endsection

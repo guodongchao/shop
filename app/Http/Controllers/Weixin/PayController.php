@@ -192,7 +192,9 @@ class PayController extends Controller
                     ]
                 ];
                 $res=$client->request('POST', $url, ['body' => json_encode($data,JSON_UNESCAPED_UNICODE)]);
-                
+                $res_arr=json_decode($res->getBody(),true);
+                $code_url='空';
+                headers("refresh:1;url='/weixin/pay/qr/$code_url'");
             }else{
                 //TODO 验签失败
                 echo '验签失败，IP: '.$_SERVER['REMOTE_ADDR'];
@@ -204,6 +206,9 @@ class PayController extends Controller
         $response = '<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>';
         echo $response;
 
+    }
+    public function qr($code_url){
+        return view('weixin.pay',$code_url);
     }
 
 

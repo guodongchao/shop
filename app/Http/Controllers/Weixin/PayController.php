@@ -207,13 +207,6 @@ class PayController extends Controller
                 echo '验签失败，IP: '.$_SERVER['REMOTE_ADDR'];
                 // TODO 记录日志
             }
-
-            $info = [
-                'is_pay'        => 2,       //支付状态  1未支付 2已支付
-            ];
-
-            OrderModel::where(['order_sn'=>$xml->out_trade_no])->update($info);
-
         }
 
         $response = '<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>';
@@ -227,10 +220,10 @@ class PayController extends Controller
     {
         $order_id = $request->input('order_id');
         $where = [
-            'order_id'  =>  $order_id,
+            'order_sn'  =>  $order_id,
         ];
         $order_info = OrderModel::where($where)->first();
-        if($order_info['is_pay']==1){
+        if($order_info['state']==2){
             $response = [
                 'error' => 0,
                 'msg'   => '支付成功',

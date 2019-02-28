@@ -10,5 +10,5 @@
 @endsection
 @section('footer')
     @parent
-    <script src="{{URL::asset('/js/wechat/chat.js')}}"></script>
+    <script src="{{URL::asset('/js/weixin/chat.js')}}"></script>
 @endsection

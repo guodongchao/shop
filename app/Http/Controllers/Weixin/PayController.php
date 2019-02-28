@@ -181,15 +181,6 @@ class PayController extends Controller
         if($xml->result_code=='SUCCESS' && $xml->return_code=='SUCCESS'){      //微信支付成功回调
 
 
-
-
-
-
-
-
-
-
-
             //验证签名
             $sign = true;
 
@@ -198,6 +189,7 @@ class PayController extends Controller
                 $info = [
                     'state'        =>2,
                     'order_price'    =>$xml->total_fee,
+                    'add_tim'       =>time()
                 ];
 
                 OrderModel::where(['order_sn'=>$xml->out_trade_no])->update($info);

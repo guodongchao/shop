@@ -598,11 +598,11 @@ class WeixinController extends Controller
         //  echo '<hr>';
          echo '<pre>';print_r($user_arr);echo '</pre>';
             $data=[
-              'openid'      =>$user_arr->openid,
-              'nickname'    =>$user_arr->nickname,
-              'sex'          =>$user_arr->sex,
+              'openid'      =>$user_arr['openid'],
+              'nickname'    =>$user_arr['nickname'],
+              'sex'          =>$user_arr['sex'],
               'add_time'    =>time(),
-              'headimgurl'  =>$user_arr->headimgurl,
+              'headimgurl'  =>$user_arr['headimgurl'],
               'subscribe_time'=>time()
             ];
         $res=WeixinUser::insertGetId($data);

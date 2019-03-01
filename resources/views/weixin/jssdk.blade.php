@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h2>JSSDK</h2>
+        <h2>JSSDK,JSSDK</h2>
 
     </div>
 @endsection

@@ -597,8 +597,9 @@ class WeixinController extends Controller
         $user_arr = json_decode($user_json, true);
         //  echo '<hr>';
          echo '<pre>';print_r($user_arr);echo '</pre>';
-        $res=WeixinUser::insertGetId($user_arr);
-        var_dump($res);exit;
+
+        //$res=WeixinUser::insertGetId($user_arr);
+        //var_dump($res);exit;
     }
 
 

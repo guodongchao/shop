@@ -599,7 +599,6 @@ class WeixinController extends Controller
         // echo '<pre>';print_r($user_arr);echo '</pre>';
 
     }
-
-}
+    
 
 }

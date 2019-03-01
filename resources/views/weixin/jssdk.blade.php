@@ -10,7 +10,7 @@
 @endsection
 @section('footer')
     @parent
-    <script src="http://res2.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+    <script src="https://res2.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
 
     <script>
         wx.config({

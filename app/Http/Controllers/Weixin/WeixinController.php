@@ -597,17 +597,57 @@ class WeixinController extends Controller
         $user_arr = json_decode($user_json, true);
         //  echo '<hr>';
          echo '<pre>';print_r($user_arr);echo '</pre>';
-            $data=[
-              'openid'      =>$user_arr['openid'],
-              'nickname'    =>$user_arr['nickname'],
-              'sex'          =>$user_arr['sex'],
-              'add_time'    =>time(),
-              'headimgurl'  =>$user_arr['headimgurl'],
-              'subscribe_time'=>time()
-            ];
-        $res=WeixinUser::insertGetId($data);
-        var_dump($res);exit;
+             $arr=WeixinUser::where(['openid'=>$user_arr['openid']])->first();
+            if($arr){
+                echo "登录成功,新用户";
+            }  else{
+                $data=[
+                    'openid'      =>$user_arr['openid'],
+                    'nickname'    =>$user_arr['nickname'],
+                    'sex'          =>$user_arr['sex'],
+                    'add_time'    =>time(),
+                    'headimgurl'  =>$user_arr['headimgurl'],
+                    'subscribe_time'=>time()
+                ];
+                $res=WeixinUser::insertGetId($data);
+                echo "登录成功,老用户";
+            }
+
     }
 
+
+
+    /**
+     * 微信jssdk 调试
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function jssdkTest()
+    {
+
+        //计算签名
+
+        $jsconfig = [
+            'appid' => env('WEIXIN_APPID_0'),        //APPID
+            'timestamp' => time(),
+            'noncestr'    => str_random(10),
+            'sign'      => $this->wxJsConfigSign()
+        ];
+
+        $data = [
+            'jsconfig'  => $jsconfig
+        ];
+        return view('weixin.jssdk',$data);
+    }
+
+
+    /**
+     * 计算JSSDK sign
+     */
+    public function wxJsConfigSign()
+    {
+
+        $sign = str_random(15);
+        return $sign;
+    }
 
 }

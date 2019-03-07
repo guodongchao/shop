@@ -20,5 +20,6 @@ Route::group([
     $router->get('/sendmsg','WeixinController@sendMsgView');
     $router->post('/sendmsg','WeixinController@sendMsg');
 
+ 
 
 });

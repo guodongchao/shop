@@ -76,7 +76,9 @@ class LaravelController extends Controller
 
         $url="https://api.weixin.qq.com/cgi-bin/tags/members/batchblacklist?access_token=$access_token";
         $client = new GuzzleHttp\Client();
-        $data['openid_list']=$openid;
+        $data=[
+            'openid_list'=>["$openid"]
+        ];
 
         $r = $client->request('POST', $url, [
             'openid_list' => json_encode($data,JSON_UNESCAPED_UNICODE)

@@ -74,7 +74,8 @@ class LaravelController extends Controller
         $url="https://api.weixin.qq.com/cgi-bin/tags/members/batchtagging?access_token=$access_token";
         $client = new GuzzleHttp\Client();
         $data=[
-            'name'=>"北京",
+            'name'=>"上海",
+            'id' =>20
         ];
 
         $r = $client->request('POST', $url, [

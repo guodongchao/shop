@@ -70,7 +70,7 @@ class LaravelController extends Controller
         //获取获取微信AccessToken
 
         $access_token=$this->getWXAccessToken();
-        echo 1;exit;
+
         //根据id获取openid
         $openid=$this->add($id);
 

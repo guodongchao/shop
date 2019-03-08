@@ -73,10 +73,10 @@ class LaravelController extends Controller
         echo 1;exit;
         //根据id获取openid
         $openid=$this->add($id);
-        echo $openid;exit;
+
         $url="https://api.weixin.qq.com/cgi-bin/tags/members/batchblacklist?access_token=$access_token";
         $client = new GuzzleHttp\Client();
-        $data['openid_list']=$openid;
+        $data[]=$openid;
         var_dump($data);exit;
         $r = $client->request('POST', $url, [
             'openid_list' => json_encode($data,JSON_UNESCAPED_UNICODE)
@@ -137,7 +137,7 @@ class LaravelController extends Controller
     *根据id获取用户id
      */
     public function add($id){
-        $arr= WeixinUser::first($id);
+        $arr= WeixinUser::where(['id'=>$id])->first();
         $openid=$arr['openid'];
         return $openid;
     }

@@ -81,7 +81,14 @@ class ShowController extends Controller
     {
         $grid = new Grid(new WeixinUser);
 
-
+        $grid->id('Id');
+        $grid->uid('Uid');
+        $grid->openid('Openid');
+        $grid->add_time('Add time');
+        $grid->nickname('Nickname');
+        $grid->sex('Sex');
+        $grid->headimgurl('Headimgurl');
+        $grid->subscribe_time('Subscribe time');
 
         return $grid;
     }
@@ -96,7 +103,14 @@ class ShowController extends Controller
     {
         $show = new Show(WeixinUser::findOrFail($id));
 
-
+        $show->id('Id');
+        $show->uid('Uid');
+        $show->openid('Openid');
+        $show->add_time('Add time');
+        $show->nickname('Nickname');
+        $show->sex('Sex');
+        $show->headimgurl('Headimgurl');
+        $show->subscribe_time('Subscribe time');
 
         return $show;
     }
@@ -110,7 +124,13 @@ class ShowController extends Controller
     {
         $form = new Form(new WeixinUser);
 
-
+        $form->number('uid', 'Uid');
+        $form->text('openid', 'Openid');
+        $form->number('add_time', 'Add time');
+        $form->text('nickname', 'Nickname');
+        $form->text('sex', 'Sex');
+        $form->text('headimgurl', 'Headimgurl');
+        $form->number('subscribe_time', 'Subscribe time');
 
         return $form;
     }

@@ -73,7 +73,7 @@ class LaravelController extends Controller
         //根据id获取openid
         $openid=$this->add($id);
         $url="https://api.weixin.qq.com/cgi-bin/tags/members/batchblacklist?access_token=$access_token";
-        $client = new GuzzleHttp\Client(['base_uri' => $url]);
+        $client = new GuzzleHttp\Client();
         $data['openid_list']=$openid;
         var_dump($data);exit;
         $r = $client->request('POST', $url, [

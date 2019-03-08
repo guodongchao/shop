@@ -68,9 +68,10 @@ class LaravelController extends Controller
         }
     public function black($id){
         //获取获取微信AccessToken
+
         $access_token=$this->getWXAccessToken();
         //根据id获取openid,并获取AccessToken
-        $this->add($id);
+        $id=$this->add($id);
         $url="https://api.weixin.qq.com/cgi-bin/tags/members/batchblacklist?access_token=$access_token";
         $client = new GuzzleHttp\Client(['base_uri' => $url]);
         $data[]=$id;

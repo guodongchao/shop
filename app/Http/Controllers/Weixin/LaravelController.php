@@ -68,7 +68,7 @@ class LaravelController extends Controller
         }
     public function black($id){
         //获取获取微信AccessToken
-
+        echo 1;exit;
         $access_token=$this->getWXAccessToken();
         //根据id获取openid
         $openid=$this->add($id);

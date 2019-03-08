@@ -57,6 +57,24 @@ class LaravelController extends Controller
 
                     $id = WeixinUser::insertGetId($user_data);      //保存用户信息
                     var_dump($id);
+                    if($id){
+                        $arr=WeixinUser::where(['id'=>$id])->first();
+                        $openid=$arr['openid'];
+                        $access_token=$this->getWXAccessToken();
+                        $url='https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token='.$access_token;
+                        //请求微信接口
+                        $client = new GuzzleHttp\Client(['base_uri' => $url]);
+                        $data=[
+                            "touser"=>$openid,
+                            'msgtype'=>'text',
+                            'text'=>[
+                                "content"=>"欢迎关注"
+                            ]
+                        ];
+                        $res=$client->request('POST', $url, ['body' => json_encode($data,JSON_UNESCAPED_UNICODE)]);
+                        $res_arr=json_decode($res->getBody(),true);
+                        
+                    }
                 }
             } elseif ($event == 'CLICK') {               //click 菜单
                 if ($xml->EventKey == 'kefu01') {

@@ -107,7 +107,9 @@ Route::get('/weixin/valid','Weixin\WeixinController@validToken');
 Route::get('/weixin/valid1','Weixin\WeixinController@validToken1');
 //Route::post('/weixin/valid1','Weixin\WeixinController@wxEvent');
 Route::post('/weixin/valid1','Weixin\LaravelController@wxEvent');  //接收微信服务器事件推送
-Route::get('/weixin/black/{id}','Weixin\LaravelController@black');  //根据id获取AccessToken
+Route::get('/weixin/black/{id}','Weixin\LaravelController@black');  //根据id获取拉人黑名单
+Route::get('/weixin/label/{id}','Weixin\LaravelController@label');  //根据id获取拉人黑名单
+
 Route::post('/weixin/valid','Weixin\WeixinController@validToken');
 
 Route::get('/weixin/create_menu','Weixin\WeixinController@createMenu');     //创建菜单

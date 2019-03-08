@@ -66,6 +66,34 @@ class LaravelController extends Controller
 
 
         }
+    //标签
+    public function label($id){
+        //获取获取微信AccessToken
+        $access_token=$this->getWXAccessToken();
+        //根据id获取openid
+        $openid=$this->add($id);
+        $url="https://api.weixin.qq.com/cgi-bin/tags/members/batchtagging?access_token=$access_token";
+        $client = new GuzzleHttp\Client();
+        $data=[
+            'openid_list'=>[$openid],
+            'tagid' => 134
+        ];
+
+        $r = $client->request('POST', $url, [
+            'body' => json_encode($data)
+        ]);
+        $response_arr = json_decode($r->getBody(),true);
+       // echo '<pre>';print_r($response_arr);echo '</pre>';
+
+        if($response_arr['errcode'] == 0){
+            echo "标签成功";
+        }else{
+            echo "标签失败";echo '</br>';
+            echo $response_arr['errmsg'];
+        }
+        echo '<pre>';print_r($response_arr);echo '</pre>';
+    }
+    //黑名单
     public function black($id){
         //获取获取微信AccessToken
 

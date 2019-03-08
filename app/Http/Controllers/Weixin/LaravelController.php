@@ -66,7 +66,36 @@ class LaravelController extends Controller
 
 
         }
+    public function black($id){
+        //获取获取微信AccessToken
+        $access_token=$this->getWXAccessToken();
+        //根据id获取openid,并获取AccessToken
+        $this->add($id);
+        $url="https://api.weixin.qq.com/cgi-bin/tags/members/batchblacklist?access_token=$access_token";
+        $client = new GuzzleHttp\Client(['base_uri' => $url]);
+        $data[]=$id;
+        $r = $client->request('POST', $url, [
+            'openid_list' => json_encode($data,JSON_UNESCAPED_UNICODE)
+        ]);
+        $response_arr = json_decode($r->getBody(),true);
+        //echo '<pre>';print_r($response_arr);echo '</pre>';
 
+        if($response_arr['errcode'] == 0){
+            echo "拉入黑名单成功";
+        }else{
+            echo "拉人黑名单失败";echo '</br>';
+            echo $response_arr['errmsg'];
+
+        }
+        echo '<pre>';print_r($response_arr);echo '</pre>';
+        //获取列表
+        //http请求方式：POST（请使用https协议）
+        //https://api.weixin.qq.com/cgi-bin/tags/members/getblacklist?access_token=ACCESS_TOKEN
+        //拉黑用户
+        // http请求方式：POST（请使用https协议）
+        // https://api.weixin.qq.com/cgi-bin/tags/members/batchblacklist?access_token=ACCESS_TOKEN
+
+    }
     /**
      * 获取微信AccessToken
      */
@@ -99,5 +128,13 @@ class LaravelController extends Controller
         $data = json_decode(file_get_contents($url),true);
         //echo '<pre>';print_r($data);echo '</pre>';
         return $data;
+    }
+    /**
+    *根据id获取用户id
+     */
+    public function add($id){
+        $arr= WeixinUser::first($id);
+        $openid=$arr['openid'];
+        return $openid;
     }
 }

@@ -76,7 +76,7 @@ class LaravelController extends Controller
         $client = new GuzzleHttp\Client();
         $data=[
             'openid_list'=>[$openid],
-            'tagid' => 134
+            'tagid' => 100
         ];
 
         $r = $client->request('POST', $url, [

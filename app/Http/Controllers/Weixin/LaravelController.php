@@ -73,7 +73,7 @@ class LaravelController extends Controller
                         ];
                         $res=$client->request('POST', $url, ['body' => json_encode($data,JSON_UNESCAPED_UNICODE)]);
                         $res_arr=json_decode($res->getBody(),true);
-                        
+
                     }
                 }
             } elseif ($event == 'CLICK') {               //click 菜单
@@ -115,7 +115,8 @@ class LaravelController extends Controller
         //获取获取微信AccessToken
         $access_token=$this->getWXAccessToken();
         //根据id获取openid
-        $openid=$this->add($id);
+        $arr=$this->add($id);
+        $openid=$arr['openid'];
         $url="https://api.weixin.qq.com/cgi-bin/tags/members/batchtagging?access_token=$access_token";
         $client = new GuzzleHttp\Client();
         $data=[

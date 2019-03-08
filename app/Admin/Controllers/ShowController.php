@@ -87,7 +87,9 @@ class ShowController extends Controller
         $grid->add_time('Add time');
         $grid->nickname('Nickname');
         $grid->sex('Sex');
-        $grid->headimgurl('Headimgurl');
+        $grid->headimgurl('Headimgurl')->disp(function($data){
+            return "<img src=".$data.">";
+        });
         $grid->subscribe_time('Subscribe time');
 
         return $grid;

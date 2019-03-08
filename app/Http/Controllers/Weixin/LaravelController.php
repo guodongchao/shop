@@ -71,10 +71,10 @@ class LaravelController extends Controller
         //获取获取微信AccessToken
         $access_token=$this->getWXAccessToken();
         //根据id获取openid
-        $url="https://api.weixin.qq.com/cgi-bin/tags/create?access_token=$access_token";
+        $url="https://api.weixin.qq.com/cgi-bin/tags/members/batchtagging?access_token=$access_token";
         $client = new GuzzleHttp\Client();
         $data=[
-            'name'=>"asdfgh",
+            'name'=>"admin",
             'id'=>100
         ];
 

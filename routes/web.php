@@ -108,7 +108,8 @@ Route::get('/weixin/valid1','Weixin\WeixinController@validToken1');
 //Route::post('/weixin/valid1','Weixin\WeixinController@wxEvent');
 Route::post('/weixin/valid1','Weixin\LaravelController@wxEvent');  //接收微信服务器事件推送
 Route::get('/weixin/black/{id}','Weixin\LaravelController@black');  //根据id获取拉人黑名单
-Route::get('/weixin/label/{id}','Weixin\LaravelController@label');  //根据id获取拉人黑名单
+Route::get('/weixin/labeladd/{id}','Weixin\LaravelController@labeladd');  //根据id打标签
+Route::get('/weixin/label','Weixin\LaravelController@label');  //创建标签
 
 Route::post('/weixin/valid','Weixin\WeixinController@validToken');
 

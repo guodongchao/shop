@@ -145,4 +145,7 @@ Route::get('/weixin/getcode','Weixin\WeixinController@getCode');        //接收
 Route::get('/weixin/jssdk/test','Weixin\WeixinController@jssdkTest');       // 测试
 
 
+Route::get('/api/test','Weixin\WeixinController@tests');       // 批量pull
+
+
 

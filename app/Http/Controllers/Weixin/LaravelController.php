@@ -163,15 +163,8 @@ class LaravelController extends Controller
         }else{
             echo "拉人黑名单失败";echo '</br>';
             echo $response_arr['errmsg'];
-
         }
         echo '<pre>';print_r($response_arr);echo '</pre>';
-        //获取列表
-        //http请求方式：POST（请使用https协议）
-        //https://api.weixin.qq.com/cgi-bin/tags/members/getblacklist?access_token=ACCESS_TOKEN
-        //拉黑用户
-        // http请求方式：POST（请使用https协议）
-        // https://api.weixin.qq.com/cgi-bin/tags/members/batchblacklist?access_token=ACCESS_TOKEN
 
     }
     /**

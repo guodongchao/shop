@@ -678,4 +678,17 @@ class WeixinController extends Controller
         return $ticket;
     }
 
+    public function tests(){
+        $web_servers=[
+            '172.21.0.8',
+            '172.21.0.9'
+        ];
+        foreach($web_servers as $k=>$v){
+            $cmd='ssh'.$v.'"cd /home/wwwroot/test && git pull"';
+            echo $cmd;echo '</br>';
+            $res=shell_exec($cmd);
+            echo $res;echo'<hr>';
+        }
+    }
+
 }

@@ -694,8 +694,9 @@ class WeixinController extends Controller
         }
     }
     public function halou(){
-
-        echo 123456789;
+        $admin=$_GET['admin'];
+        echo $admin;
+       
 
     }
 

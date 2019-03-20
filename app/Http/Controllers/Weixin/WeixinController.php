@@ -695,7 +695,7 @@ class WeixinController extends Controller
     }
     public function halou(){
 
-        echo 121212;
+        echo "dsf";
 
     }
 

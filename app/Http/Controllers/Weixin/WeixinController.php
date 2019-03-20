@@ -695,7 +695,7 @@ class WeixinController extends Controller
     }
     public function halou(){
 
-        echo 123456789;
+        echo "aabbcc";
 
     }
 

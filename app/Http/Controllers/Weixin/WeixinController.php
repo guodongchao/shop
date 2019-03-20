@@ -684,11 +684,19 @@ class WeixinController extends Controller
             '172.21.0.9'
         ];
         foreach($web_servers as $k=>$v){
+
+
+
             $cmd='ssh '.$v.' "cd /home/wwwroot/test && git pull"';
             echo $cmd;echo '</br>';
             $res=shell_exec($cmd);
             echo $res;echo'<hr>';
         }
+    }
+    public function halou(){
+
+        echo 121212;
+
     }
 
 }

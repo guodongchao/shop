@@ -71,7 +71,7 @@
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
-                        <a href="{{ route('http://api3.com/userlogin') }}">Login</a>
+                        <a href="{{ route('http://api3.com/userlogin') }}">Loginaaaaa</a>
                         <a href="{{ route('http://api3.com/userlogin') }}">Register</a>
                     @endauth
                 </div>

@@ -71,8 +71,8 @@
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
-                        <a href="{{ route('http://api3.com/userlogin') }}">Login</a>
-                        <a href="{{ route('http://passport.cms.com/login') }}">Register</a>
+                        <a href="http://api3.com/userlogin">Login</a>
+                        <a href="http://passport.cms.com/login">Register</a>
                     @endauth
                 </div>
             @endif

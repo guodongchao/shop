@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Weixin;
 
 use App\Model\WeixinUser;
+use App\Model\UserModel;
 use App\Model\WeixinChatModel;
 use App\Model\WxMedia;
 use Illuminate\Http\Request;
@@ -694,9 +695,21 @@ class WeixinController extends Controller
         }
     }
     public function halou(){
-        $admin=$_GET['admin'];
-        echo $admin;
-       
+        $data=$_POST;
+        $arr=[
+          'name'=>$data['username'],
+          'pass'=>$data['password'],
+          'age' =>1,
+          'email'=>$data['email'],
+          'reg_time'=>time()
+        ];
+        $res=UserModel::insertGetId($arr);
+        if($res){
+            echo 'OK';
+        }else{
+            echo 'ON';
+        }
+
 
     }
 

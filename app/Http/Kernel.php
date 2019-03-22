@@ -64,5 +64,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'check.cookie'=>\App\Http\Middleware\CheckCookie::class,
         'log.click'=>\App\Http\Middleware\clickLog::class,
+        'check.login' =>\App\Http\Middleware\CheckLogin::class
     ];
 }

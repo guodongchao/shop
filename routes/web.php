@@ -11,9 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'Index\IndexController@index')->middleware('check.login');
+
 
 Route::any('/adduser','User\UserController@add');
 

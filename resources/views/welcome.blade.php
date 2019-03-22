@@ -66,16 +66,19 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="http://api3.com/userlogin">Login</a>
-                        <a href="http://passport.cms.com/login">Register</a>
-                    @endauth
-                </div>
+
+            <div class="top-right links">
+            @if($is_login==1)
+                <a href="">Home</a>
+            @else
+                <a href="http://api3.lara.com/userlogin?redirect={{$url}}">Login</a>
+                <a href="http://api3.lara.com/userlogin?redirect={{$url}}">Register</a>
             @endif
+            </div>
+
+
+
+
 
             <div class="content">
                 <div class="title m-b-md">

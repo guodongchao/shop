@@ -70,6 +70,7 @@
             <div class="top-right links">
             @if($is_login==1)
                 <a href="">Home</a>
+                <a href="http://api3.lara.com/quit?redirect={{$url}}">Quit</a>
             @else
                 <a href="http://api3.lara.com/userlogin?redirect={{$url}}">Login</a>
                 <a href="http://api3.lara.com/userlogin?redirect={{$url}}">Register</a>

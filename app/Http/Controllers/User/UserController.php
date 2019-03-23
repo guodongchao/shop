@@ -11,6 +11,7 @@ class UserController extends Controller
 {
 
     public function abc(Request $request){
+        echo 1;exit;
         $name=$request->input('name');
         $pwd=$request->input('pwd');
         $url="http://gdc.hz4155.cn/apilogin";

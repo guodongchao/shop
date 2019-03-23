@@ -69,7 +69,7 @@
 
             <div class="top-right links">
             @if($is_login==1)
-                <a href="https://gdcqianqianya.xyz/centre">centre</a>
+                <a href="https://gdc.qianqianya.xyz/centre">centre</a>
                 <a href="http://dc.qianqianya.xyz/quit?redirect={{$url}}">Quit</a>
             @else
                 <a href="http://dc.qianqianya.xyz/userlogin?redirect={{$url}}">Login</a>

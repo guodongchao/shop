@@ -68,9 +68,7 @@
         <div class="flex-center position-ref full-height">
 
             <div class="top-right links">
-
-                <a href="http://dc.qianqianya.xyz/quit?redirect={{$url}}">Quit</a>
-
+                <a href="http://dc.qianqianya.xyz/quit">Quit</a>
             </div>
 
 

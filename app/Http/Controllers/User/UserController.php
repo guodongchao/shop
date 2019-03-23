@@ -8,6 +8,9 @@ use App\Model\UserModel;
 
 class UserController extends Controller
 {
+    /**
+    *个人中心
+    */
     public function centre(){
         $id=setcookie('xnn_uid');
         $info=UserModel::where(['uid'=>$id])->first();

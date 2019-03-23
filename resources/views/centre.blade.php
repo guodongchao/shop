@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>欢迎您{{$name}}}</title>
+        <title>{{$name}}}的个人中心</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -77,7 +77,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    欢迎您{{$name}}
                 </div>
 
                 <div class="links">

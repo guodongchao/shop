@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>欢迎您{{$name}}}</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -68,13 +68,9 @@
         <div class="flex-center position-ref full-height">
 
             <div class="top-right links">
-            @if($is_login==1)
-                <a href="https://gdcqianqianya.xyz/centre">centre</a>
+
                 <a href="http://dc.qianqianya.xyz/quit?redirect={{$url}}">Quit</a>
-            @else
-                <a href="http://dc.qianqianya.xyz/userlogin?redirect={{$url}}">Login</a>
-                <a href="http://dc.qianqianya.xyz/resistr?redirect={{$url}}">Register</a>
-            @endif
+
             </div>
 
 

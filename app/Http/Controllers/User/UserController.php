@@ -8,7 +8,16 @@ use App\Model\UserModel;
 
 class UserController extends Controller
 {
-
+    public function centre(){
+        $id=setcookie('xnn_uid');
+        $info=UserModel::where(['uid'=>$id])->first();
+        var_dump($info);
+        $name=$info['name'];
+        $data=[
+            'name'=>$name
+        ];
+        return view('centre',$data);
+    }
     public function abc(Request $request){
 
         $name=$request->input('u_name');

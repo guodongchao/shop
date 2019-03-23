@@ -19,7 +19,8 @@ class CheckLogin
         if(isset($_COOKIE['xnn_uid']) && isset($_COOKIE['xnn_token'])){
             //验证token
             $key = 'token:' . $_COOKIE['xnn_uid'];
-            $token = Redis::get($key);
+            //$token = Redis::get($key);
+            $token= Redis::hget($key,'web');
             if($token == $_COOKIE['xnn_token']){
                 $request->attributes->add(['is_login'=>1]);
             }else{

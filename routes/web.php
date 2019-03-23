@@ -15,6 +15,8 @@ Route::get('/', 'Index\IndexController@index')->middleware('check.login');
 
 
 Route::any('/adduser','User\UserController@add');
+Route::post('/abc','User\UserController@abc');
+
 
 //路由跳转
 Route::redirect('/hello1','/world1',301);

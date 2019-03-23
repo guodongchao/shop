@@ -9,6 +9,22 @@ use App\Model\UserModel;
 
 class UserController extends Controller
 {
+
+    public function abc(Request $request){
+        $name=$request->input('name');
+        $pwd=$request->input('pwd');
+        $url="http://api3.lara.com/apilogin";
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, ['u_name' => $name, 'u_pwd' => $pwd]);
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        $rs = curl_exec($ch);
+
+
+    }
     //
 
 	public function user($uid)

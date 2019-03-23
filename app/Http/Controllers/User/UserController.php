@@ -13,9 +13,9 @@ class UserController extends Controller
     */
     public function centre(){
         $id=setcookie('xnn_uid');
-        echo $id;
-        $info=UserModel::where(['uid'=>$id])->first();
-        print_r($info);
+       // echo $id;
+        $info=UserModel::where(['uid'=>$id])->all();
+       // print_r($info);
         $name=$info['name'];
         $data=[
             'name'=>$name

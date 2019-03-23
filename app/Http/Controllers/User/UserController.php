@@ -13,7 +13,7 @@ class UserController extends Controller
 
         $name=$request->input('u_name');
         $pwd=$request->input('u_pwd');
-        $url="http://dc.qianqianya.xyz/userlogin";
+        $url="http://dc.qianqianya.xyz/apilogin";
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POST, 1);

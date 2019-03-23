@@ -70,10 +70,10 @@
             <div class="top-right links">
             @if($is_login==1)
                 <a href="">Home</a>
-                <a href="http://gdc.hz4155.cn/quit?redirect={{$url}}">Quit</a>
+                <a href="http://dc.qianqianya.xyz/quit?redirect={{$url}}">Quit</a>
             @else
-                <a href="http://gdc.hz4155.cn/userlogin?redirect={{$url}}">Login</a>
-                <a href="http://gdc.hz4155.cn/resistr?redirect={{$url}}">Register</a>
+                <a href="http://dc.qianqianya.xyz/userlogin?redirect={{$url}}">Login</a>
+                <a href="http://dc.qianqianya.xyz/resistr?redirect={{$url}}">Register</a>
             @endif
             </div>
 

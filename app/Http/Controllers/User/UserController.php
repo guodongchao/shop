@@ -13,7 +13,7 @@ class UserController extends Controller
     public function abc(Request $request){
         $name=$request->input('name');
         $pwd=$request->input('pwd');
-        $url="http://api3.lara.com/apilogin";
+        $url="http://gdc.hz4155.cn/apilogin";
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POST, 1);

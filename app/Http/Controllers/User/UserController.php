@@ -13,7 +13,7 @@ class UserController extends Controller
 
         $name=$request->input('u_name');
         $pwd=$request->input('u_pwd');
-        $url="http://gdc.hz4155.cn/apilogin";
+        $url="http://gdc.hz4155.cn/userlogin";
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POST, 1);
@@ -21,8 +21,9 @@ class UserController extends Controller
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_HEADER, 0);
-        $rs = curl_exec($ch);
-        $response = json_decode($rs,true);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        $response = json_decode($response,true);
         return $response;
 
 

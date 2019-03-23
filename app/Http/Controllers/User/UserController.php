@@ -4,7 +4,6 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
 use App\Model\UserModel;
 
 class UserController extends Controller
@@ -23,6 +22,8 @@ class UserController extends Controller
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         $rs = curl_exec($ch);
+        $response = json_decode($rs,true);
+        return $response;
 
 
     }

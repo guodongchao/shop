@@ -16,6 +16,7 @@ Route::get('/', 'Index\IndexController@index')->middleware('check.login');
 
 Route::any('/adduser','User\UserController@add');
 Route::post('/abc','User\UserController@abc');
+Route::post('/abcd','User\UserController@abcd');
 Route::get('/centre','User\UserController@centre');
 
 

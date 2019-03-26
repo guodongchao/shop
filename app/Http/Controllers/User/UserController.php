@@ -20,6 +20,28 @@ class UserController extends Controller
         ];
         return view('centre',$data);
     }
+    public function abcd(Request $request){
+
+        $name=$request->input('u_name');
+        $pwd=$request->input('u_pwd');
+        $yespwd=$request->input('yespwd');
+        $uemail=$request->input('uemail');
+        $url="http://dc.qianqianya.xyz/register";
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, ['u_name' => $name, 'u_pwd' => $pwd,'u_pwd1'=>$yespwd,'uemail'=>$uemail]);
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        $response = json_decode($response,true);
+        return $response;
+
+
+    }
+
     public function abc(Request $request){
 
         $name=$request->input('u_name');
